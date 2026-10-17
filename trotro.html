@@ -1,0 +1,1880 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Trotro Ghana -- Transit Router Prototype</title>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
+:root {
+  --ink: #0f172a;
+  --muted: #64748b;
+  --yellow: #f59e0b;
+  --blue: #3b82f6;
+  --green: #10b981;
+  --surface: rgba(255, 255, 255, 0.85);
+  --surface-hover: rgba(255, 255, 255, 0.95);
+  --border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  --font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* { box-sizing: border-box; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+html, body, #map { width: 100%; height: 100%; margin: 0; }
+body { font-family: var(--font-family); overflow: hidden; background: #eef1f4; -webkit-font-smoothing: antialiased; }
+
+#map { position: absolute; inset: 0; }
+
+.search-wrap { position: absolute; z-index: 20; top: 24px; left: 24px; right: 24px; max-width: 560px; margin: auto; }
+.search-card { 
+  background: var(--surface); 
+  backdrop-filter: blur(16px); 
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 20px; 
+  box-shadow: var(--glass-shadow); 
+  display: flex; 
+  flex-direction: column;
+  padding: 8px 0; 
+  overflow: hidden;
+}
+.search-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  position: relative;
+}
+.search-row.border-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 56px;
+  right: 16px;
+  height: 1px;
+  background: rgba(0,0,0,0.06);
+}
+.search-icon-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 24px;
+  margin-right: 16px;
+  position: relative;
+}
+.pin-icon { width: 18px; height: 18px; color: var(--blue); }
+.dotted-line { width: 2px; height: 14px; background-image: linear-gradient(to bottom, #cbd5e1 50%, transparent 50%); background-size: 2px 4px; margin: 4px 0; }
+.search-input-col { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.search-label { font-size: 12px; font-weight: 500; color: #94a3b8; margin-bottom: 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+.search-card input { border: 0; outline: 0; width: 100%; font-size: 16px; font-weight: 600; background: transparent; font-family: inherit; color: var(--ink); padding: 0; }
+.search-card input::placeholder { color: #cbd5e1; font-weight: 500; }
+.action-btn { 
+  border: 0; 
+  background: transparent; 
+  color: #94a3b8; 
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.action-btn:hover { background: rgba(59, 130, 246, 0.1); color: var(--blue); transform: scale(1.1); }
+
+.results { 
+  display: none; 
+  margin-top: 12px; 
+  background: var(--surface); 
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+  border-radius: 20px; 
+  box-shadow: var(--glass-shadow); 
+  overflow: hidden; 
+  max-height: 420px; 
+  overflow-y: auto; 
+}
+.result { display: flex; gap: 14px; padding: 16px 18px; border-bottom: 1px solid rgba(0,0,0,0.05); cursor: pointer; }
+.result:hover { background: rgba(255,255,255,0.9); padding-left: 24px; }
+.result-icon { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, #e2e8f0, #f1f5f9); display: grid; place-items: center; flex: none; font: 700 16px/1 var(--font-family); color: #475467; box-shadow: inset 0 2px 4px rgba(255,255,255,0.5); }
+.result-main { min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+.result-name { font-weight: 700; font-size: 15px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.result-address { font-size: 13px; color: var(--muted); margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.result-distance { font-size: 13px; font-weight: 700; margin-left: auto; white-space: nowrap; color: var(--blue); align-self: center; background: rgba(59, 130, 246, 0.1); padding: 4px 10px; border-radius: 20px; }
+
+.search-msg { padding: 16px; color: var(--muted); font-size: 14px; text-align: center; font-weight: 500; }
+.search-msg.error { color: #ef4444; background: rgba(239, 68, 68, 0.05); }
+
+.bottom { 
+  position: absolute; 
+  z-index: 15; 
+  left: 24px; 
+  right: 24px; 
+  bottom: 24px; 
+  max-width: 560px; 
+  margin: auto; 
+  background: var(--surface); 
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 24px; 
+  box-shadow: 0 16px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(255,255,255,0.5) inset; 
+  padding: 24px; 
+  max-height: 55vh; 
+  overflow: auto; 
+}
+.bottom h3 { margin: 0 0 6px; font-size: 18px; font-weight: 800; color: var(--ink); letter-spacing: -0.02em; }
+.bottom p { margin: 0; color: var(--muted); font-size: 13px; font-weight: 500; }
+
+.route-info { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.06); }
+.route-title { font-weight: 800; font-size: 16px; color: var(--ink); }
+.eta-main { font-size: 34px; font-weight: 900; margin-top: 8px; background: linear-gradient(135deg, var(--ink) 0%, var(--blue) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.04em; text-shadow: 0 4px 16px rgba(59, 130, 246, 0.15); transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); display: inline-block; }
+.eta-main.pop { transform: scale(1.15) translateY(-2px); }
+.loader-track { height: 6px; background: rgba(0,0,0,0.06); border-radius: 4px; margin-top: 8px; overflow: hidden; width: 150px; opacity: 0; transition: opacity 0.3s ease; box-shadow: inset 0 1px 2px rgba(0,0,0,0.05); }
+.loader-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--blue), #60a5fa); border-radius: 4px; box-shadow: 0 0 10px rgba(59, 130, 246, 0.5); }
+.loader-track.show { opacity: 1; }
+.eta-sub, .eta-arrival { color: var(--muted); font-size: 13px; margin-top: 4px; font-weight: 500; }
+
+.journey { margin-top: 16px; }
+.journey-head { display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 800; margin-bottom: 10px; color: var(--ink); text-transform: uppercase; letter-spacing: 0.05em; }
+
+.leg { border: 1px solid rgba(0,0,0,0.05); border-radius: 16px; padding: 14px; margin-top: 10px; background: rgba(255,255,255,0.6); }
+.leg:hover { background: rgba(255,255,255,0.9); box-shadow: 0 4px 12px rgba(0,0,0,0.03); transform: scale(1.01); }
+.leg-top { display: flex; gap: 12px; align-items: center; }
+.leg-icon { width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, var(--yellow), #fcd34d); font-size: 18px; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3); color: #fff; }
+.leg-name { font-weight: 800; font-size: 14px; color: var(--ink); }
+.leg-detail { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 500; }
+.leg-time { margin-left: auto; font-size: 13px; font-weight: 800; color: var(--ink); background: rgba(0,0,0,0.04); padding: 4px 10px; border-radius: 20px; }
+
+.transfer { font-size: 12px; font-weight: 600; color: var(--blue); padding: 8px 14px; background: rgba(59, 130, 246, 0.1); border-radius: 12px; display: inline-block; margin-top: 10px; }
+
+.fare { margin-top: 16px; padding: 16px; border-radius: 16px; background: linear-gradient(145deg, #f8fafc, #f1f5f9); border: 1px solid rgba(255,255,255,0.8); box-shadow: inset 0 2px 4px rgba(255,255,255,0.5), 0 4px 12px rgba(0,0,0,0.03); }
+.fare-top { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.fare-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 800; }
+.fare-amount { font-size: 28px; font-weight: 900; letter-spacing: -0.04em; color: var(--ink); text-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.fare-conf { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 800; background: #e0e7ff; color: #4338ca; margin-left: auto; white-space: nowrap; box-shadow: 0 2px 6px rgba(67, 56, 202, 0.15); }
+.fare-conf.high { background: #d1fae5; color: #047857; box-shadow: 0 2px 6px rgba(4, 120, 87, 0.15); }
+.fare-conf.medium { background: #fef3c7; color: #b45309; box-shadow: 0 2px 6px rgba(180, 83, 9, 0.15); }
+.fare-legs { margin-top: 12px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 12px; }
+.fare-leg { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; padding: 4px 0; color: var(--ink); font-weight: 500; }
+.fare-leg b { font-weight: 800; white-space: nowrap; }
+.fare-note { font-size: 12px; color: var(--muted); margin-top: 10px; line-height: 1.5; font-weight: 500; }
+.fare-src { font-size: 11px; color: #94a3b8; margin-top: 6px; line-height: 1.5; }
+
+.start-row { margin-top: 12px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12px; color: var(--muted); font-weight: 500; }
+.start-row .sr-label { font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; font-size: 10px; }
+.start-btn { font: inherit; font-size: 12px; font-weight: 800; color: #047857; background: #d1fae5; border: 1px solid #a7f3d0; border-radius: 24px; padding: 6px 14px; cursor: pointer; white-space: nowrap; box-shadow: 0 2px 6px rgba(4, 120, 87, 0.1); }
+.start-btn:hover { background: #10b981; color: #fff; transform: translateY(-1px); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
+.start-btn.unsure { background: #fef3c7; color: #b45309; border-color: #fde68a; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.1); }
+.start-btn.unsure:hover { background: #f59e0b; color: #fff; }
+
+.stop-picker { margin-top: 12px; padding: 12px; border-radius: 16px; background: rgba(255,255,255,0.5); border: 1px solid rgba(0,0,0,0.05); }
+.stop-picker .sp-title { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.stop-picker .sp-row { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; font-weight: 600; padding: 8px 10px; border-radius: 10px; cursor: pointer; color: var(--ink); transition: all 0.2s; }
+.stop-picker .sp-row:hover { background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transform: translateX(4px); }
+.stop-picker .sp-row span:last-child { color: var(--blue); font-size: 12px; font-weight: 700; white-space: nowrap; background: rgba(59,130,246,0.1); padding: 2px 8px; border-radius: 12px; }
+
+.option { border: 1px solid rgba(0,0,0,0.05); border-radius: 16px; padding: 16px; margin-top: 12px; background: rgba(255,255,255,0.7); cursor: pointer; }
+.option.best { background: linear-gradient(to right, rgba(255, 253, 245, 0.9), rgba(255, 255, 255, 0.9)); border-color: #fde68a; box-shadow: 0 4px 16px rgba(245, 158, 11, 0.05); border-left: 4px solid var(--yellow); }
+.option.only { cursor: default; background: #fff; }
+.option.only:hover { border-color: rgba(0,0,0,0.05); transform: none; }
+.option:hover { border-color: var(--blue); background: #fff; box-shadow: 0 8px 24px rgba(59, 130, 246, 0.1); transform: translateY(-2px); }
+
+.option-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.option-title { font-weight: 800; font-size: 15px; color: var(--ink); }
+.option-fare { font-weight: 900; font-size: 16px; white-space: nowrap; color: var(--ink); }
+.option-meta { font-size: 12px; color: var(--muted); margin-top: 4px; font-weight: 500; }
+.option-steps { margin-top: 12px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 10px; }
+
+.step { display: flex; gap: 12px; align-items: flex-start; padding: 6px 0; font-size: 13px; }
+.step:hover { background: rgba(0,0,0,0.02); border-radius: 8px; padding-left: 8px; padding-right: 8px; margin-left: -8px; margin-right: -8px; }
+.step-tag { flex: none; font-size: 10px; font-weight: 800; letter-spacing: 0.05em; padding: 4px 8px; border-radius: 8px; background: linear-gradient(135deg, var(--yellow), #fbbf24); color: #000; margin-top: 2px; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.2); }
+.step-tag.change { background: var(--ink); color: var(--yellow); }
+.step-tag.walk { background: #f1f5f9; color: var(--muted); box-shadow: none; }
+.step-tag.stop { background: var(--ink); color: #fff; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.2); }
+.step-main { flex: 1; min-width: 0; }
+.step-name { font-weight: 700; color: var(--ink); }
+.step-detail { font-size: 12px; color: var(--muted); margin-top: 2px; font-weight: 500; }
+.step-time { flex: none; font-size: 12px; font-weight: 800; color: var(--ink); white-space: nowrap; margin-top: 2px; background: rgba(0,0,0,0.04); padding: 3px 8px; border-radius: 8px; }
+
+.notice { margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: #fffbeb; color: #b45309; font-size: 12px; font-weight: 600; line-height: 1.5; border: 1px solid #fde68a; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.05); }
+.stop-offer { background: #ecfdf5; color: #047857; cursor: pointer; border: 1px solid #a7f3d0; }
+.stop-offer:hover { background: #10b981; color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2); }
+
+.trip-cars { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.car-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 24px; background: #fff; color: var(--ink); white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.05); }
+.car-chip:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+.car-dot { width: 10px; height: 10px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5); }
+
+.change-banner { margin-top: 12px; display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 16px; background: var(--ink); color: #fff; font-size: 13px; line-height: 1.5; font-weight: 500; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.2); }
+.change-banner:hover { transform: scale(1.01); }
+.change-banner .cb-icon { flex: none; width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, var(--yellow), #fbbf24); color: var(--ink); font: 900 13px/24px var(--font-family); text-align: center; margin-top: 0; box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3); }
+.change-banner b { color: var(--yellow); }
+.change-banner .cb-where { font-weight: 800; color: #fff; }
+
+.legend { margin-top: 12px; border-top: 1px solid rgba(0,0,0,0.06); padding-top: 12px; }
+.legend-title { font-size: 10px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.legend-row { display: flex; align-items: flex-start; gap: 10px; padding: 6px 0; font-size: 13px; font-weight: 500; }
+.legend-row:hover { background: rgba(0,0,0,0.02); border-radius: 8px; padding-left: 8px; margin-left: -8px; }
+.legend-bar { width: 16px; height: 6px; border-radius: 4px; flex: none; margin-top: 6px; box-shadow: 0 0 0 2px rgba(255,255,255,0.5); }
+.legend-step { width: 16px; height: 16px; border-radius: 50%; flex: none; display: grid; place-items: center; font: 900 9px/1 var(--font-family); color: #fff; background: var(--ink); margin-top: 1px; box-shadow: 0 2px 4px rgba(15, 23, 42, 0.2); }
+.legend-main { flex: 1; min-width: 0; }
+.legend-name { font-weight: 800; color: var(--ink); }
+.legend-detail { font-size: 12px; color: var(--muted); margin-top: 2px; }
+.legend-no { color: #fff; background: var(--ink); }
+
+.step-tag.car { color: #fff; }
+.step-row-change { background: #fef3c7; border-radius: 12px; padding: 6px 8px; box-shadow: inset 4px 0 0 var(--yellow); margin-left: -8px; margin-right: -8px; }
+.step-row-change:hover { background: #fde68a; }
+.step-row-change .step-name { font-weight: 800; color: #92400e; }
+.step-row-end { background: #f1f5f9; border-radius: 12px; padding: 6px 8px; box-shadow: inset 4px 0 0 var(--ink); margin-left: -8px; margin-right: -8px; }
+.step-row-end:hover { background: #e2e8f0; }
+.step-row-end .step-name { font-weight: 800; }
+.legend-stop { width: 16px; height: 16px; border-radius: 50%; flex: none; margin-top: 1px; background: var(--ink); box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--ink); }
+
+.legend-bar.key-walk { background: #94a3b8; margin-top: 8px; }
+.legend-bar.key-change { background: var(--yellow); margin-top: 8px; box-shadow: 0 0 0 2px #fff, 0 0 0 4px rgba(245, 158, 11, 0.5); }
+
+.change-pin { position: relative; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--ink); border: 4px solid var(--yellow); box-shadow: 0 4px 16px rgba(0,0,0,0.3); pointer-events: none; }
+.change-pin span { color: var(--yellow); font: 900 13px/1 var(--font-family); }
+.change-pin::after { content: 'CHANGE CAR'; position: absolute; top: 38px; left: 50%; transform: translateX(-50%); white-space: nowrap; background: var(--ink); color: #fff; font: 800 10px/1 var(--font-family); letter-spacing: 0.1em; padding: 6px 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+.board-pin { width: 16px; height: 16px; border-radius: 50%; border: 4px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.2); pointer-events: none; }
+
+.locate { position: absolute; z-index: 12; right: 24px; bottom: 200px; width: 56px; height: 56px; border: 0; border-radius: 50%; background: var(--surface); backdrop-filter: blur(12px); box-shadow: var(--glass-shadow); font-size: 24px; cursor: pointer; color: var(--ink); display: grid; place-items: center; }
+.locate:hover { transform: scale(1.1); background: #fff; color: var(--blue); box-shadow: 0 12px 32px rgba(59, 130, 246, 0.2); }
+.user-marker { width: 28px; height: 28px; border-radius: 50%; background: var(--blue); border: 5px solid #fff; box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4); animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); } 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } }
+
+.trotro-marker { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--yellow), #fbbf24); border: 4px solid white; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.3); display: grid; place-items: center; font-size: 22px; transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); cursor: pointer; }
+.trotro-marker:hover { transform: scale(1.2) translateY(-4px); box-shadow: 0 10px 24px rgba(245, 158, 11, 0.4); }
+
+.status { position: absolute; z-index: 14; right: 24px; top: 100px; background: var(--surface); backdrop-filter: blur(12px); border-radius: 12px; padding: 10px 16px; box-shadow: var(--glass-shadow); font-size: 13px; font-weight: 600; color: var(--muted); display: none; }
+.green { color: var(--green); }
+.red { color: #ef4444; }
+
+.maplibregl-ctrl-top-right { top: 160px; right: 14px; }
+.maplibregl-ctrl-group { border-radius: 16px; overflow: hidden; box-shadow: var(--glass-shadow); border: 1px solid rgba(255,255,255,0.4); background: var(--surface); backdrop-filter: blur(12px); }
+.maplibregl-ctrl-group button { width: 36px; height: 36px; }
+
+@media(max-width:600px){
+  .search-wrap { top: 16px; left: 16px; right: 16px; }
+  .bottom { left: 16px; right: 16px; bottom: 16px; padding: 20px; }
+  .locate { right: 16px; bottom: 220px; }
+  .status { top: 90px; right: 16px; }
+  .maplibregl-ctrl-top-right { top: 140px; right: 6px; }
+}
+
+.nearby-stop-pin { width: 18px; height: 18px; border-radius: 50%; background: var(--green); border: 3px solid #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); cursor: pointer; transition: transform 0.2s; }
+.nearby-stop-pin:hover { transform: scale(1.3); }
+
+/* Scrollbar customization */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.2); }
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<div class="search-wrap">
+  <div class="search-card">
+    <div class="search-row border-bottom">
+      <div class="search-icon-stack">
+        <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"></circle><path d="M12 21c-4.2-4.2-8-8.4-8-12a8 8 0 1 1 16 0c0 3.6-3.8 7.8-8 12z"></path></svg>
+        <div class="dotted-line"></div>
+      </div>
+      <div class="search-input-col">
+        <span class="search-label">From</span>
+        <input id="startSearch" autocomplete="off" placeholder="My current location">
+      </div>
+      <button class="action-btn" id="locateInside" title="Show my location">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="7"></circle>
+          <line x1="12" y1="2" x2="12" y2="5"></line>
+          <line x1="12" y1="19" x2="12" y2="22"></line>
+          <line x1="2" y1="12" x2="5" y2="12"></line>
+          <line x1="19" y1="12" x2="22" y2="12"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="search-row">
+      <div class="search-icon-stack">
+        <svg class="pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"></circle><path d="M12 21c-4.2-4.2-8-8.4-8-12a8 8 0 1 1 16 0c0 3.6-3.8 7.8-8 12z"></path></svg>
+      </div>
+      <div class="search-input-col">
+        <span class="search-label">Where are you going?</span>
+        <input id="search" autocomplete="off" placeholder="Search destination">
+      </div>
+      <button class="action-btn" id="searchBtn" title="Search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div id="results" class="results"></div>
+</div>
+
+<div id="status" class="status"></div>
+
+
+<div class="bottom">
+  <h3 id="headline">Finding your location...</h3>
+  <p id="subline">Allow location access so the map can show you where you are.</p>
+
+  <div id="routeInfo" class="route-info">
+    <div id="routeTitle" class="route-title"></div>
+    <div id="etaMain" class="eta-main">--</div>
+    <div id="etaLoaderTrack" class="loader-track"><div id="etaLoaderBar" class="loader-bar"></div></div>
+    <div id="routeMeta" class="eta-sub"></div>
+    <div id="routeCars" class="trip-cars"></div>
+    <div id="routeChange" class="change-banner" style="display:none"></div>
+    <div id="etaArrival" class="eta-arrival"></div>
+    <div id="startRow" class="start-row" style="display:none"></div>
+    <div id="fare" class="fare" style="display:none"></div>
+    <div id="legend" class="legend" style="display:none"></div>
+    <div id="journey" class="journey"></div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<!-- Stops, routes, interchanges and journey planning. Edit it, not this page.
+     The ?v= is a cache buster: browsers hang on to the old copy otherwise, and a
+     stale network file makes a fix look like it did nothing. Bump it whenever
+     trotro-network.js or trotro-pricing.js changes. -->
+<script src="ghana_all_stops.js?v=2026.10.08e"></script>
+<script src="pipeline/generated_routes.js?v=2026.10.08e"></script>
+<script src="trotro-network.js?v=2026.10.08e"></script>
+<!-- All fare data and fare logic. Edit it, not this page. -->
+<script src="trotro-pricing.js?v=2026.10.08e"></script>
+<script>
+(() => {
+'use strict';
+
+const map = new maplibregl.Map({
+  container:'map',
+  style:'https://tiles.openfreemap.org/styles/liberty',
+  center:[-1.02,7.95],
+  zoom:6.2,
+  attributionControl:true
+});
+map.addControl(new maplibregl.NavigationControl({showCompass:true}),'top-right');
+
+const searchEl=document.getElementById('search');
+const startSearchEl=document.getElementById('startSearch');
+let activeInput = searchEl;
+const resultsEl=document.getElementById('results');
+const statusEl=document.getElementById('status');
+const headline=document.getElementById('headline');
+const subline=document.getElementById('subline');
+const routeInfo=document.getElementById('routeInfo');
+const routeTitle=document.getElementById('routeTitle');
+const routeMeta=document.getElementById('routeMeta');
+const etaMain=document.getElementById('etaMain');
+const etaArrival=document.getElementById('etaArrival');
+const journeyEl=document.getElementById('journey');
+const fareEl=document.getElementById('fare');
+const routeCarsEl=document.getElementById('routeCars');
+const routeChangeEl=document.getElementById('routeChange');
+const legendEl=document.getElementById('legend');
+const startEl=document.getElementById('startRow');
+
+let userPos=null,userMarker=null,watchId=null,searchController=null;
+let originPlace=null;
+let detectedPlaceName = 'Your Current Location';
+let activeRouteRequest=0;
+// Where the trip starts, and whether the app is sure about that. chosenStart is
+// the stop the user picked for themselves, which overrides the browser's fix.
+// These are declared up here because the position watcher reads them.
+let chosenStart=null,activeStart=null,lastPlace=null,userAccuracy=null;
+let planStart=null;         // the start the trip on screen was actually built from
+let lastReplanAt=0;         // debounce: a streaming fix must not storm the planner
+const START_UNSURE_M=1500;  // further than this to the nearest stop, the position is doubted
+const START_REPLAN_M=200;   // move further than this and the trip is rebuilt
+const START_REPLAN_MS=4000; // and not more often than this while the fix streams in
+
+function setStatus(text,cls){
+  statusEl.textContent=text;
+  statusEl.className='status '+(cls||'');
+  statusEl.style.display=text?'block':'none';
+}
+function distKm(a,b){
+  const R=6371,dLat=(b[1]-a[1])*Math.PI/180,dLon=(b[0]-a[0])*Math.PI/180;
+  const x=Math.sin(dLat/2)**2+Math.cos(a[1]*Math.PI/180)*Math.cos(b[1]*Math.PI/180)*Math.sin(dLon/2)**2;
+  return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+}
+function prettyDistance(km){return km<1?Math.round(km*1000)+' m':km.toFixed(1)+' km'}
+function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+
+function ensureUserVisual(){
+  if(!userMarker){
+    const el=document.createElement('div');
+    el.className='user-marker';
+    el.title='Your live location';
+    userMarker=new maplibregl.Marker({element:el}).setLngLat(userPos).addTo(map);
+  }else userMarker.setLngLat(userPos);
+
+  const data={type:'Feature',geometry:{type:'Point',coordinates:userPos},properties:{}};
+  if(!map.getSource('user-accuracy')){
+    map.addSource('user-accuracy',{type:'geojson',data});
+    map.addLayer({
+      id:'user-accuracy-fill',type:'circle',source:'user-accuracy',
+      paint:{'circle-radius':18,'circle-color':'#1976ff','circle-opacity':0.10,
+             'circle-stroke-color':'#1976ff','circle-stroke-opacity':0.22,'circle-stroke-width':1}
+    });
+  }else map.getSource('user-accuracy').setData(data);
+}
+
+
+let nearbyMarkers = [];
+function showNearbyStops(latLon,n){
+  nearbyMarkers.forEach(m => m.remove());
+  nearbyMarkers = [];
+  if (!window.TrotroNetwork || !latLon) return [];
+  const from = TrotroNetwork.asLatLon ? TrotroNetwork.asLatLon(latLon) : latLon;
+  const stops = TrotroNetwork.nearestStops(from,n||5,{maxM:1500});
+  stops.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'nearby-stop-pin';
+    el.title = s.displayName + ' (' + Math.round(s.meters)+' m walk)';
+    const popup = new maplibregl.Popup({ offset: 12 })
+      .setHTML('<strong>' + escapeHtml(s.displayName) + '</strong><br><small>' + Math.round(s.meters)+' m walk</small>');
+    el.addEventListener('click', () => chooseBoarding(s));
+    const marker = new maplibregl.Marker({ element: el })
+      .setLngLat([s.lon, s.lat])
+      .setPopup(popup)
+      .addTo(map);
+    nearbyMarkers.push(marker);
+  });
+  return stops;
+}
+window.showNearbyStops=showNearbyStops;
+
+function chooseBoarding(s) {
+  chosenStart = s;
+  replan();
+}
+
+function startLocation(){
+  if(!navigator.geolocation){
+    headline.textContent='Location is not supported';
+    subline.textContent='This browser does not provide GPS location.';
+    setStatus('Location unavailable','red'); return;
+  }
+  setStatus('Finding your location...');
+  let locationSoundPlayed = false;
+  const onPos=pos=>{
+    if (!locationSoundPlayed) {
+      if (typeof playSuccessSound === 'function') playSuccessSound();
+      locationSoundPlayed = true;
+    }
+    userPos=[pos.coords.longitude,pos.coords.latitude];
+    // How sure the browser is. A fix that is only accurate to a kilometre is a
+    // guess, and the start row has to say so rather than present it as fact.
+    userAccuracy=typeof pos.coords.accuracy==='number'?pos.coords.accuracy:null;
+    ensureUserVisual();
+    if(window.showNearbyStops) showNearbyStops(userPos, 5);
+
+    const updateStartSearch = (name) => {
+      const oldName = detectedPlaceName;
+      detectedPlaceName = name;
+      if (!originPlace && (!startSearchEl.value || startSearchEl.value === oldName || startSearchEl.value === 'Your Current Location')) {
+        startSearchEl.value = name;
+      }
+    };
+
+    fetch(`https://photon.komoot.io/reverse?lon=${userPos[0]}&lat=${userPos[1]}`)
+      .then(r => r.json())
+      .then(d => {
+        if (d.features && d.features.length) {
+          const p = d.features[0].properties;
+          updateStartSearch(p.street || p.name || 'Your Current Location');
+        } else {
+          updateStartSearch('Your Current Location');
+        }
+      })
+      .catch(() => updateStartSearch('Your Current Location'));
+
+    /* A trip on screen was built from a position the app no longer holds if the
+       passenger has moved (or the fix has jumped). Rebuilding it here is what
+       stops the blue dot and the itinerary disagreeing: before this, the dot
+       could move to Labadi while the card still described a trip from Circle.
+       A start the passenger chose themselves is never overridden. */
+    if(planStart&&planStart.point&&lastPlace&&!chosenStart&&window.TrotroNetwork
+       &&TrotroNetwork.haversineM(planStart.point,userPos)>START_REPLAN_M
+       &&Date.now()-lastReplanAt>START_REPLAN_MS){
+      lastReplanAt=Date.now();
+      replan();
+    }
+    const near = window.TrotroNetwork ? window.TrotroNetwork.nearestStop(userPos) : null;
+    headline.textContent='You are here';
+    if(near && near.stop && near.meters <= 2500){
+      subline.textContent='Near ' + near.stop.displayName + ' (' + prettyDistance(near.meters/1000) + ') - live location [' + userPos[0].toFixed(5) + ', ' + userPos[1].toFixed(5) + ']';
+    }else{
+      subline.textContent='Blue dot = your live location';
+    }
+    setStatus('Location detected','green');
+    if(!map.__firstFix){
+      map.__firstFix=true;
+      map.flyTo({center:userPos,zoom:15,duration:1300});
+    }
+  };
+  const onErr=err=>{
+    const msg=err.code===1?'Location permission was denied. Allow location access in your browser.':
+              err.code===2?'Your location could not be determined. Check GPS/network.':
+              'Location request timed out. Try again.';
+    headline.textContent='Could not get your location';
+    subline.textContent=msg;
+    setStatus('Location unavailable','red');
+  };
+  navigator.geolocation.getCurrentPosition(onPos,onErr,{enableHighAccuracy:true,timeout:15000,maximumAge:5000});
+  if(watchId!==null) navigator.geolocation.clearWatch(watchId);
+  watchId=navigator.geolocation.watchPosition(onPos,onErr,{enableHighAccuracy:true,timeout:20000,maximumAge:5000});
+}
+
+
+
+document.getElementById('locateInside').onclick=()=>{
+  if (typeof playSuccessSound === 'function') playSuccessSound();
+  if(userPos) map.flyTo({center:userPos,zoom:16,duration:900});
+  else startLocation();
+};
+const GHANA_ALIASES=[
+ {keys:['circle','kwame nkrumah circle','nkrumah circle'],name:'Kwame Nkrumah Circle',address:'Kwame Nkrumah Circle, Accra, Ghana',lon:-0.2177,lat:5.5568,type:'transportation'},
+ {keys:['37','37 military hospital','37 hospital'],name:'37 Military Hospital',address:'37 Military Hospital, Accra, Ghana',lon:-0.1854,lat:5.5865,type:'hospital'},
+ {keys:['kaneshie'],name:'Kaneshie',address:'Kaneshie, Accra, Ghana',lon:-0.2490,lat:5.5598,type:'locality'},
+ {keys:['madina'],name:'Madina',address:'Madina, Accra, Ghana',lon:-0.1680,lat:5.6830,type:'locality'},
+ {keys:['osu'],name:'Osu',address:'Osu, Accra, Ghana',lon:-0.1820,lat:5.5577,type:'locality'},
+ {keys:['tema'],name:'Tema',address:'Tema, Greater Accra, Ghana',lon:0.0059,lat:5.6698,type:'city'},
+ {keys:['kasoa'],name:'Kasoa',address:'Kasoa, Central Region, Ghana',lon:-0.4167,lat:5.5333,type:'town'},
+ {keys:['east legon','east-legon'],name:'East Legon',address:'East Legon, Accra, Ghana',lon:-0.1640,lat:5.6390,type:'locality'},
+ {keys:['airport city'],name:'Airport City',address:'Airport City, Accra, Ghana',lon:-0.1719,lat:5.6052,type:'locality'},
+ {keys:['achimota','achimoto'],name:'Achimota',address:'Achimota, Accra, Ghana',lon:-0.2296,lat:5.6160,type:'locality'},
+  {keys:['ridge','parliament'],name:'Ridge',address:'Ridge, Accra, Ghana',lon:-0.1770,lat:5.5920,type:'locality'},
+  {keys:['legon','university of ghana'],name:'Legon',address:'Legon, Accra, Ghana',lon:-0.1860,lat:5.6500,type:'locality'},
+  {keys:['nima'],name:'Nima',address:'Nima, Accra, Ghana',lon:-0.1855,lat:5.5500,type:'locality'},
+  {keys:['adabraka','jamestown'],name:'Adabraka',address:'Adabraka, Accra, Ghana',lon:-0.2050,lat:5.5595,type:'locality'},
+  {keys:['haatso','hataaso'],name:'Haatso',address:'Haatso, Accra, Ghana',lon:-0.2400,lat:5.6350,type:'locality'},
+  {keys:['kwadaso'],name:'Kwadaso',address:'Kwadaso, Accra, Ghana',lon:-0.2400,lat:5.6050,type:'locality'},
+  {keys:['chorkor'],name:'Chorkor',address:'Chorkor, Accra, Ghana',lon:-0.2200,lat:5.5400,type:'locality'},
+  {keys:['dansoman'],name:'Dansoman',address:'Dansoman, Accra, Ghana',lon:-0.2450,lat:5.5700,type:'locality'},
+  {keys:['tshie','teshie'],name:'Teshie',address:'Teshie, Accra, Ghana',lon:-0.3300,lat:5.5250,type:'locality'},
+  {keys:['nungua'],name:'Nungua',address:'Nungua, Accra, Ghana',lon:-0.3050,lat:5.5350,type:'locality'},
+  {keys:['spintex'],name:'Spintex',address:'Spintex, Accra, Ghana',lon:-0.3700,lat:5.5300,type:'locality'},
+  {keys:['adjen kotoku'],name:'Adjen Kotoku',address:'Adjen Kotoku, Accra, Ghana',lon:-0.3450,lat:5.5350,type:'locality'},
+  {keys:['odorkor'],name:'Odorkor',address:'Odorkor, Accra, Ghana',lon:-0.2640,lat:5.5660,type:'locality'},
+  {keys:['abossey okai'],name:'Abossey Okai',address:'Abossey Okai, Accra, Ghana',lon:-0.2700,lat:5.5480,type:'locality'},
+  {keys:['kwashi'],name:'Kwashi',address:'Kwashi, Accra, Ghana',lon:-0.2900,lat:5.5480,type:'locality'},
+  {keys:['gomoa fie'],name:'Gomoa Fie',address:'Gomoa Fie, Accra, Ghana',lon:-0.3100,lat:5.5430,type:'locality'},
+  {keys:['ablekuma','south la'],name:'Ablekuma',address:'Ablekuma, Accra, Ghana',lon:-0.2480,lat:5.5720,type:'locality'},
+  {keys:['cantonments'],name:'Cantonments',address:'Cantonments, Accra, Ghana',lon:-0.2480,lat:5.5620,type:'locality'},
+  {keys:['labadi','la beach'],name:'Labadi',address:'Labadi, Accra, Ghana',lon:-0.2830,lat:5.5670,type:'locality'},
+  {keys:['nsawam'],name:'Nsawam',address:'Nsawam, Greater Accra, Ghana',lon:-0.4000,lat:5.8000,type:'town'},
+  {keys:['adenta'],name:'Adenta',address:'Adenta, Greater Accra, Ghana',lon:-0.2000,lat:5.6120,type:'town'}
+];
+
+function localAliasSearch(q){
+  const n=q.toLowerCase().trim();
+  return GHANA_ALIASES.filter(x=>x.keys.some(k=>k===n||k.includes(n)||n.includes(k))).map(x=>({...x}));
+}
+function iconFor(type){
+  const s=(type||'').toLowerCase();
+  if(s.includes('restaurant')||s.includes('cafe')||s.includes('food'))return'F';
+  if(s.includes('hospital')||s.includes('clinic')||s.includes('pharmacy'))return'+';
+  if(s.includes('school')||s.includes('college')||s.includes('university'))return'E';
+  if(s.includes('fuel')||s.includes('gas'))return'P';
+  if(s.includes('bank')||s.includes('atm'))return'B';
+  if(s.includes('hotel')||s.includes('guest'))return'H';
+  if(s.includes('shop')||s.includes('market')||s.includes('mall'))return'S';
+  if(s.includes('bus')||s.includes('station')||s.includes('transport'))return'T';
+  if(s.includes('lodging')||s.includes('motel'))return'H';
+  if(s.includes('parking')||s.includes('car')||s.includes('taxi'))return'P';
+  return'*';
+}
+function normalize(items){
+  const seen=new Map();
+  for(const x of items){
+    if(!x||!Number.isFinite(Number(x.lat))||!Number.isFinite(Number(x.lon)))continue;
+    if(Number(x.lat)<4.5||Number(x.lat)>11.5||Number(x.lon)<-3.5||Number(x.lon)>1.5)continue;
+    const k=(String(x.name)+'|'+Number(x.lat).toFixed(4)+'|'+Number(x.lon).toFixed(4)).toLowerCase();
+    if(!seen.has(k))seen.set(k,{...x,lat:Number(x.lat),lon:Number(x.lon)});
+  }
+  return [...seen.values()];
+}
+function rank(items,q){
+  const n=q.toLowerCase().trim();
+  return normalize(items).sort((a,b)=>{
+    const score=x=>{
+      const name=String(x.name||'').toLowerCase();let s=0;
+      if(name===n)s+=1200;if(name.startsWith(n))s+=800;if(name.includes(n))s+=500;
+      if(String(x.address||'').toLowerCase().includes(n))s+=120;
+      if(userPos)s-=Math.min(300,distKm(userPos,[x.lon,x.lat])*10);
+      return s;
+    };
+    return score(b)-score(a);
+  });
+}
+async function photonSearch(q){
+  const params=new URLSearchParams({
+    q:q.toLowerCase().includes('ghana')?q:q+', Ghana',
+    limit:'20',lang:'en',
+    lat:userPos?String(userPos[1]):'5.6037',
+    lon:userPos?String(userPos[0]):'-0.1870'
+  });
+  const r=await fetch('https://photon.komoot.io/api/?'+params,{signal:searchController.signal});
+  if(!r.ok)throw Error('photon');
+  const data=await r.json();
+  return (data.features||[]).map(f=>{
+    const p=f.properties||{},c=f.geometry&&f.geometry.coordinates;if(!c)return null;
+    return {name:p.name||p.street||p.city||q,type:p.type||p.osm_value||'',address:[p.street,p.housenumber,p.district,p.city,p.state,p.country].filter(Boolean).join(', ')||'Ghana',lon:+c[0],lat:+c[1]};
+  }).filter(Boolean);
+}
+async function nominatimSearch(q){
+  const terms=[q,q+', Accra, Ghana',q+', Ghana'];
+  const out=[];
+  for(const term of terms){
+    const p=new URLSearchParams({q:term,format:'jsonv2',limit:'20',addressdetails:'1',countrycodes:'gh',dedupe:'1'});
+    const r=await fetch('https://nominatim.openstreetmap.org/search?'+p,{signal:searchController.signal});
+    if(!r.ok)continue;
+    const d=await r.json();
+    for(const x of d)out.push({name:x.name||x.display_name.split(',')[0],type:x.type||x.category||'',address:x.display_name,lon:+x.lon,lat:+x.lat});
+    if(out.length>=20)break;
+  }
+  return out;
+}
+function showResults(items,stopHits){
+  resultsEl.innerHTML='';
+  // The network's own stops come first and are labelled as stops. Picking one
+  // plans to that exact stop, which is the only way to be sure the right
+  // trotro is offered - a map service result for the same name can be
+  // kilometres from where the car actually stops.
+  const stopRows=(stopHits||[]).slice(0,3);
+  const placeRows=items.slice(0,stopRows.length?6:8);
+  if(!stopRows.length&&!placeRows.length){resultsEl.innerHTML='<div class="search-msg">No matching places found in Ghana.</div>';resultsEl.style.display='block';return;}
+  const addRow=(item,note)=>{
+    const row=document.createElement('div');row.className='result';
+    const d=userPos?distKm(userPos,[item.lon,item.lat]):null;
+    row.innerHTML='<div class="result-icon">'+iconFor(item.type)+'</div><div class="result-main"><div class="result-name"></div><div class="result-address"></div></div>'+(d!==null?'<div class="result-distance">'+prettyDistance(d)+'</div>':'');
+    row.querySelector('.result-name').textContent=item.name;
+    row.querySelector('.result-address').textContent=note;
+    row.onclick=()=>selectPlace(item);
+    resultsEl.appendChild(row);
+  };
+  stopRows.forEach(h=>addRow({
+    name:h.stop.displayName,
+    address:'Trotro stop'+(h.stop.stationNote?' - '+h.stop.stationNote:''),
+    lon:h.stop.lon,lat:h.stop.lat,type:'transportation'
+  },'Trotro stop on this network - planned to this exact stop'+(h.stop.stationNote?' ('+h.stop.stationNote+')':'')));
+  placeRows.forEach(item=>addRow(item,item.address||'Ghana'));
+  resultsEl.style.display='block';
+}
+async function doSearch(){
+  const q=activeInput.value.trim();if(q.length<2)return;
+  if(searchController)searchController.abort();
+  searchController=new AbortController();
+  // Stops on this network that match the words typed. Shown first, because
+  // picking one is the only way to be certain which stop the trip ends at.
+  const stopHits=window.TrotroNetwork?TrotroNetwork.searchStops(q,4):[];
+  resultsEl.style.display='block';resultsEl.innerHTML='<div class="search-msg">Finding places in Ghana...</div>';
+  const local=localAliasSearch(q);
+  try{
+    const settled=await Promise.allSettled([photonSearch(q),nominatimSearch(q)]);
+    let items=[...local];
+    for(const r of settled)if(r.status==='fulfilled')items.push(...r.value);
+    showResults(rank(items,q),stopHits);
+  }catch(e){
+    if(e.name==='AbortError')return;
+    showResults(rank(local,q),stopHits);
+  }
+}
+
+startSearchEl.addEventListener('focus', () => {
+  activeInput = startSearchEl;
+  if (startSearchEl.value === detectedPlaceName || startSearchEl.value === 'Your Current Location') {
+    if (typeof startSearchEl.select === 'function') startSearchEl.select();
+  }
+});
+startSearchEl.addEventListener('input', () => {
+  if (startSearchEl.value !== detectedPlaceName && startSearchEl.value !== 'Your Current Location') {
+    originPlace = null;
+    chosenStart = null;
+  }
+});
+startSearchEl.addEventListener('blur', () => {
+  if (!startSearchEl.value.trim() && userPos && !originPlace) {
+    startSearchEl.value = detectedPlaceName;
+  }
+});
+searchEl.addEventListener('focus', () => { activeInput = searchEl; });
+let audioCtx;
+function playSuccessSound() {
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    // Out-of-this-world sci-fi Lydian chord sweep
+    const freqs = [523.25, 659.25, 783.99, 987.77];
+    freqs.forEach((freq, i) => {
+      const osc = audioCtx.createOscillator();
+      const gainNode = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq / 2, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(freq, audioCtx.currentTime + 0.1 + (i * 0.05));
+      gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      gainNode.gain.linearRampToValueAtTime(0.15, audioCtx.currentTime + 0.1 + (i * 0.05));
+      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5 + (i * 0.2));
+      osc.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 2.0);
+    });
+  } catch(e) {}
+}
+
+document.getElementById('searchBtn').onclick=doSearch;
+startSearchEl.addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();if(e.key==='Escape')resultsEl.style.display='none';});
+searchEl.addEventListener('keydown',e=>{if(e.key==='Enter')doSearch();if(e.key==='Escape')resultsEl.style.display='none';});
+
+/* ---------- TROTRO JOURNEY PLANNER ----------
+   The stops, the routes, the interchanges and the whole "which car, change
+   where" decision all live in trotro-network.js. This section only:
+     1. asks that file for itineraries,
+     2. replaces its straight-line estimates with real OSRM driving times,
+     3. prices each ride with trotro-pricing.js,
+     4. draws the result.
+   It makes no transport decisions of its own.
+*/
+
+const OSRM_CACHE=new Map();
+
+async function osrm(a,b){
+  const key=a.map(n=>n.toFixed(5)).join(',')+';'+b.map(n=>n.toFixed(5)).join(',');
+  if(OSRM_CACHE.has(key))return OSRM_CACHE.get(key);
+  const u='https://router.project-osrm.org/route/v1/driving/'+a[0]+','+a[1]+';'+b[0]+','+b[1]+'?overview=full&geometries=geojson';
+  const r=await fetch(u);
+  if(!r.ok)throw Error('OSRM');
+  const d=await r.json();
+  if(d.code!=='Ok'||!d.routes||!d.routes[0])throw Error('OSRM');
+  OSRM_CACHE.set(key,d.routes[0]);
+  return d.routes[0];
+}
+
+/* ---------- CAR COLOURS ON THE MAP --------------------------------------
+   Each car is drawn in its own route colour, so a trip that uses two cars
+   shows two colours and the change of car is visible. The route colours are
+   not guaranteed to LOOK different from each other, though: measured against
+   this network the Madina car (#1d4ed8) and the Osu car (#0e7490) are 83 RGB
+   units apart, the Kasoa car (#e8710a) and the Tema car (#d93025) only 30, and
+   the Nsawam and East Legon cars (#8b5cf6 and #7c3aed) just 3. A passenger
+   cannot see a change of car in two lines that look the same.
+
+   So when the next car's colour is too close to one already used on this
+   trip, that car is drawn in a different colour taken from the other cars'
+   own palette. Only the cars drawn for this trip are affected - the network's
+   route data is never touched - and the first car always keeps its colour, so
+   the line a passenger recognises is the one on the sign.
+   ----------------------------------------------------------------------- */
+const CAR_COLOR_MIN=120;  // RGB distance below which two cars look the same
+const CAR_COLOR_POOL=(()=>{
+  const pool=[];
+  const add=c=>{if(c&&pool.indexOf(c)<0)pool.push(c)};
+  if(window.TrotroNetwork&&TrotroNetwork.routes)TrotroNetwork.routes.forEach(r=>add(r.color));
+  // A few strong colours no route uses yet, so a trip of four cars still has
+  // something clearly different to fall back on.
+  ['#4d7c0f','#334155','#a21caf','#065f46','#f59e0b'].forEach(add);
+  return pool;
+})();
+
+function rgbOf(hex){
+  const h=String(hex||'').replace('#','');
+  return h.length===6?[0,2,4].map(i=>parseInt(h.substr(i,2),16)):[0,0,0];
+}
+function colorGap(a,b){
+  const A=rgbOf(a),B=rgbOf(b);
+  return Math.sqrt((A[0]-B[0])**2+(A[1]-B[1])**2+(A[2]-B[2])**2);
+}
+// The colour each car is actually drawn in, kept apart from the colour of the
+// car before it. Mutates the legs and the matching entry in itin.cars, which
+// is what the chips, the legend and the map all read.
+function assignCarColors(itin){
+  const rides=itin.legs.filter(l=>l.kind==='ride');
+  if(rides.length<2)return itin;
+  const used=[];
+  rides.forEach(leg=>{
+    let color=leg.color;
+    const nearest=used.length?Math.min(...used.map(u=>colorGap(u,color))):Infinity;
+    if(nearest<CAR_COLOR_MIN){
+      let pick=color,best=nearest;
+      CAR_COLOR_POOL.forEach(c=>{
+        const score=Math.min(...used.map(u=>colorGap(u,c)));
+        if(score>best){best=score;pick=c}
+      });
+      if(best>nearest)color=pick;
+    }
+    leg.color=color;
+    used.push(color);
+  });
+  const cars=(itin.cars||[]).filter(c=>c.name);
+  rides.forEach((leg,i)=>{if(cars[i])cars[i].color=leg.color});
+  return itin;
+}
+
+// Swap the network's straight-line estimates for real driving times and
+// distances. A leg that OSRM cannot answer keeps its estimate and is marked,
+// so the UI can say the time is an estimate instead of pretending otherwise.
+async function hydrateItinerary(itin){
+  // One entry per ride LEG, not per OSRM hop, so each car keeps its own colour
+  // on the map. A two-car trip must not look like one long black line.
+  const rideLegs=[];
+  // The walks are kept in two piles, because they mean two different things
+  // and are drawn in two different colours: grey reaching a stop to catch a
+  // car, yellow moving to another stop to take another car.
+  const walkSegments=[];   // walking to a stop
+  const changeSegments=[]; // walking to a different stop to change cars
+  let totalMeters=0,anyEstimated=false;
+
+  for(const leg of itin.legs){
+    if(leg.kind==='ride'){
+      const segs=[];
+      let meters=0,seconds=0,complete=true;
+      for(let i=0;i<leg.coords.length-1;i++){
+        try{
+          const r=await osrm(leg.coords[i],leg.coords[i+1]);
+          meters+=r.distance;seconds+=r.duration;
+          if(r.geometry&&r.geometry.coordinates)segs.push(r.geometry.coordinates);
+        }catch(e){
+          // OSRM cannot answer this hop. Draw it straight rather than leave a
+          // gap in the line, and keep the network's own estimate for the time.
+          complete=false;
+          segs.push([leg.coords[i],leg.coords[i+1]]);
+        }
+      }
+      if(complete){
+        leg.meters=meters;
+        leg.seconds=seconds;
+        leg.minutes=seconds/60;
+        leg.estimated=false;
+        totalMeters+=meters;
+      }else{
+        leg.estimated=true;
+        anyEstimated=true;
+      }
+      rideLegs.push({color:leg.color||'#111827',segments:segs,leg:leg});
+    }else{
+      // Walk and transfer legs are short and genuinely straight, so they are
+      // drawn directly. Without these a walk-only trip would draw no line.
+      const into=leg.kind==='transfer'?changeSegments:walkSegments;
+      for(let i=0;i<leg.coords.length-1;i++)into.push([leg.coords[i],leg.coords[i+1]]);
+      // Walking is part of the trip the passenger makes, so it counts towards
+      // how far the journey covers. A get-off leg has no distance at all.
+      totalMeters+=leg.meters||0;
+    }
+  }
+
+  itin.totalMeters=totalMeters;
+  // The total includes the last bit on foot from the stop you get off at
+  // (gapMinutes on the arrive leg). It is never drawn or listed as a walk
+  // step, but the total has to carry it, otherwise the page would call the
+  // journey that leaves you 1.7 km short of the destination the quicker one.
+  itin.totalMinutes=itin.legs.reduce((s,l)=>s+(l.minutes||0)+(l.gapMinutes||0),0);
+  itin.anyEstimated=anyEstimated;
+  return {rideLegs:rideLegs,walkSegments:walkSegments,changeSegments:changeSegments,anyEstimated:anyEstimated};
+}
+
+// One fare per car ride, because you pay again when you change vehicles.
+function priceItinerary(itin){
+  const entries=[];
+  for(const leg of itin.legs){
+    if(leg.kind!=='ride')continue;
+    entries.push({
+      label:leg.fromName+' -> '+leg.toName,
+      result:TrotroPricing.getFare(
+        {name:leg.fromName,lon:leg.coords[0][0],lat:leg.coords[0][1]},
+        {name:leg.toName,lon:leg.coords[leg.coords.length-1][0],lat:leg.coords[leg.coords.length-1][1]},
+        {roadKm:leg.meters/1000}
+      )
+    });
+  }
+  return entries;
+}
+
+function itineraryFareTotal(entries){
+  return entries.reduce((s,e)=>s+(e.result&&e.result.ok?e.result.fare:0),0);
+}
+
+// DOM markers added for the current journey. Map layers can be removed by id,
+// but these have to be tracked so a new journey does not stack pins on old ones.
+let itinPins=[];
+
+// How far a searched point may sit from a known stop and still be treated as
+// that stop. Roughly the length of a city block: close enough that the person
+// meant the stop, far enough to absorb geocoder imprecision.
+const meta_SNAP_M=600;
+
+function clearItinerary(){
+  ['itin-casing','itin-line','itin-walk-line','itin-change-casing','itin-change-line','itin-stops','itin-ends'].forEach(id=>{if(map.getLayer(id))map.removeLayer(id)});
+  ['itin-route','itin-walk','itin-change','itin-stops','itin-ends'].forEach(id=>{if(map.getSource(id))map.removeSource(id)});
+  itinPins.forEach(m=>m.remove());
+  itinPins=[];
+}
+
+// Draw the chosen option: every car in its own colour, the walking parts, a
+// pin wherever you board or get off, and a marked CHANGE point wherever the
+// passenger has to leave one car and pick up another.
+function drawItinerary(segs,origin,destination,itin){
+  clearItinerary();
+  const rideLegs=(segs&&segs.rideLegs)||[];
+  const walks=(segs&&segs.walkSegments)||[];
+  const changeWalks=(segs&&segs.changeSegments)||[];
+  const all=[];
+  rideLegs.forEach(r=>r.segments.forEach(s=>s.forEach(c=>all.push(c))));
+  walks.forEach(seg=>seg.forEach(c=>all.push(c)));
+  changeWalks.forEach(seg=>seg.forEach(c=>all.push(c)));
+
+  // Grey, dashed: a walk that gets you to a stop to catch a car.
+  if(walks.length){
+    map.addSource('itin-walk',{type:'geojson',data:{type:'Feature',properties:{},geometry:{type:'MultiLineString',coordinates:walks}}});
+    map.addLayer({id:'itin-walk-line',type:'line',source:'itin-walk',paint:{'line-color':'#8a94a6','line-width':3,'line-opacity':.95,'line-dasharray':[1.4,1.6]}});
+  }
+
+  // Yellow, dashed, on a white casing: not a walk to a stop, but the move
+  // between two stops to take a different car. Same colour as the CHANGE pin
+  // and the change rows, so "stop here and take another car" reads the same on
+  // the map as it does in the list.
+  if(changeWalks.length){
+    map.addSource('itin-change',{type:'geojson',data:{type:'Feature',properties:{},geometry:{type:'MultiLineString',coordinates:changeWalks}}});
+    map.addLayer({id:'itin-change-casing',type:'line',source:'itin-change',paint:{'line-color':'#fff','line-width':9,'line-opacity':.95}});
+    map.addLayer({id:'itin-change-line',type:'line',source:'itin-change',paint:{'line-color':'#f6c800','line-width':5,'line-opacity':1,'line-dasharray':[1.5,1.4]}});
+  }
+
+  // Each car is a separate feature carrying its route colour, so the line on
+  // the map visibly changes colour at the interchange. This is the single
+  // clearest signal that the trip is not one continuous ride.
+  const rideFeatures=[];
+  rideLegs.forEach(r=>{
+    r.segments.forEach(seg=>{
+      rideFeatures.push({type:'Feature',properties:{color:r.color},geometry:{type:'LineString',coordinates:seg}});
+    });
+  });
+  if(rideFeatures.length){
+    map.addSource('itin-route',{type:'geojson',data:{type:'FeatureCollection',features:rideFeatures}});
+    map.addLayer({id:'itin-casing',type:'line',source:'itin-route',paint:{'line-color':'#fff','line-width':11,'line-opacity':.95}});
+    map.addLayer({
+      id:'itin-line',type:'line',source:'itin-route',
+      paint:{'line-color':['get','color'],'line-width':6,'line-opacity':.95}
+    });
+  }
+
+  // Stops on the way, with the first and last stop of each car drawn larger.
+  // Those two are exactly the points where you get on and get off, so the
+  // boundaries between cars are visible even without the CHANGE pin.
+  const pts=[];
+  for(const leg of itin.legs){
+    if(leg.kind!=='ride')continue;
+    for(let i=0;i<leg.coords.length;i++){
+      const first=i===0,last=i===leg.coords.length-1;
+      const role=first?'board':last?'alight':'stop';
+      pts.push({type:'Feature',properties:{role:role,color:leg.color||'#f6c800'},
+        geometry:{type:'Point',coordinates:leg.coords[i]}});
+    }
+  }
+  if(pts.length){
+    map.addSource('itin-stops',{type:'geojson',data:{type:'FeatureCollection',features:pts}});
+    map.addLayer({
+      id:'itin-stops',type:'circle',source:'itin-stops',
+      paint:{
+        'circle-radius':['match',['get','role'],'board',8,'alight',8,4.5],
+        'circle-color':['get','color'],
+        'circle-stroke-color':'#fff','circle-stroke-width':2
+      }
+    });
+  }
+
+  // The change of car itself. Without this the passenger sees a line change
+  // colour but has to guess why, so the interchange is pinned and numbered in
+  // the order it happens.
+  const changes=itin.legs.filter(l=>l.kind==='transfer');
+  changes.forEach((c,i)=>{
+    const el=document.createElement('div');
+    el.className='change-pin';
+    el.innerHTML='<span>'+(i+1)+'</span>';
+    el.title='Change of car at '+c.atName;
+    itinPins.push(new maplibregl.Marker({element:el}).setLngLat([c.lon,c.lat]).addTo(map));
+  });
+
+  // Where the journey starts and ends. Without these a straight line has no
+  // visible beginning, and a walk-only trip looks like nothing at all.
+  if(origin&&destination){
+    const ends={type:'FeatureCollection',features:[
+      {type:'Feature',properties:{kind:'origin'},geometry:{type:'Point',coordinates:origin}},
+      {type:'Feature',properties:{kind:'dest'},geometry:{type:'Point',coordinates:destination}}
+    ]};
+    map.addSource('itin-ends',{type:'geojson',data:ends});
+    map.addLayer({
+      id:'itin-ends',type:'circle',source:'itin-ends',
+      paint:{
+        'circle-radius':['case',['==',['get','kind'],'dest'],7,6],
+        'circle-color':['case',['==',['get','kind'],'dest'],'#e8710a','#1976ff'],
+        'circle-stroke-color':'#fff','circle-stroke-width':2
+      }
+    });
+  }
+
+  if(all.length){
+    const b=new maplibregl.LngLatBounds();
+    b.extend(origin);b.extend(destination);all.forEach(c=>b.extend(c));
+    map.fitBounds(b,{padding:{top:105,bottom:330,left:35,right:35},duration:900,maxZoom:16});
+  }else{
+    map.flyTo({center:destination,zoom:14,duration:900});
+  }
+}
+
+function minutesLabel(m){return Math.max(1,Math.round(m))+' min'}
+
+/* ---------- MULTI-CAR PRESENTATION --------------------------------------
+   The planner already knows how many cars a trip needs and where the changes
+   happen. These helpers put that in front of the passenger in one place, so
+   the headline, the banner, the legend and the option cards can never
+   disagree about whether the trip is one car or several.
+   ---------------------------------------------------------------------- */
+
+// "One car, no change" / "2 cars, 1 change" etc. Always states the car count
+// first, because that is the thing a passenger needs to know before leaving.
+function tripTitle(itin){
+  if(!itin.hasRide)return 'Walk the whole way';
+  const n=itin.rideCount||1;
+  const cars=n+(n===1?' car':' cars');
+  if(!itin.transfers)return cars+', no change';
+  return cars+', '+itin.transfers+(itin.transfers===1?' change':' changes');
+}
+
+function changePoints(itin){
+  return itin.legs.filter(l=>l.kind==='transfer');
+}
+
+// The stop the trip ends at, and how far the searched place is from it. The
+// last leg of a car journey is a get-off stop, never a walk: how far you still
+// have to go from there is the passenger's own business, and is stated rather
+// than turned into walking time that the trip is charged for.
+function finalStop(itin){
+  const last=itin.legs[itin.legs.length-1];
+  return last&&last.kind==='arrive'?last:null;
+}
+
+function endGap(itin){
+  const stop=finalStop(itin);
+  return stop?stop.gapM||0:0;
+}
+
+// One sentence for the end of the trip, used by the card step and the legend,
+// so both say exactly the same thing.
+function arrivalDetail(leg){
+  const gap=leg.gapM||0;
+  if(gap<60)return 'Your journey ends here. This is the stop you asked for.';
+  const walkTime=leg.gapMinutes?', about '+Math.max(1,Math.round(leg.gapMinutes))+' min on foot':'';
+  return 'Your journey ends here. What you searched for is about '
+    +prettyDistance(gap/1000)+' from this stop, on foot from here'+walkTime+'.';
+}
+
+// A row of coloured chips, one per car, in order. The dot is the exact colour
+// used for that car on the map, so the two can be matched at a glance.
+function renderCarChips(itin){
+  routeCarsEl.innerHTML='';
+  const cars=(itin.cars||[]).filter(c=>c.name);
+  if(!cars.length){routeCarsEl.style.display='none';return;}
+  cars.forEach((c,i)=>{
+    const chip=document.createElement('span');
+    chip.className='car-chip';
+    const dot=document.createElement('span');
+    dot.className='car-dot';
+    dot.style.background=c.color||'#111827';
+    const label=document.createElement('span');
+    // Numbered so the order on the map is unambiguous.
+    label.textContent=(i+1)+'. '+c.name;
+    chip.append(dot,label);
+    routeCarsEl.appendChild(chip);
+  });
+  routeCarsEl.style.display='flex';
+}
+
+// The dark banner naming the interchange. This is the one element that makes
+// "you will have to get out and take a different car" impossible to miss.
+function renderChangeBanner(itin){
+  const changes=changePoints(itin);
+  if(!changes.length){routeChangeEl.style.display='none';return;}
+
+  routeChangeEl.innerHTML='';
+  const icon=document.createElement('div');
+  icon.className='cb-icon';
+  icon.textContent=changes.length;
+
+  const body=document.createElement('div');
+  const first=document.createElement('div');
+  const n=itin.rideCount||changes.length+1;
+  first.append(document.createTextNode('This trip is not one car. You take '));
+  const strong=document.createElement('b');
+  strong.textContent=n+(n===1?' car':' cars');
+  first.append(strong,document.createTextNode(' and change '+(changes.length===1?'car':'cars')+':'));
+
+  const list=document.createElement('div');
+  changes.forEach((c,i)=>{
+    const line=document.createElement('div');
+    line.style.marginTop='3px';
+    const num=document.createElement('span');
+    num.textContent=(i+1)+'. ';
+    const where=document.createElement('span');
+    where.className='cb-where';
+    where.textContent=c.atName;
+    line.append(num,where);
+    if(c.station)line.append(document.createTextNode(' (bus station)'));
+    list.appendChild(line);
+  });
+
+  const pay=document.createElement('div');
+  pay.style.marginTop='5px';
+  pay.style.opacity='.85';
+  pay.textContent='You get out, wait, and pay the next driver separately.';
+
+  body.append(first,list,pay);
+  routeChangeEl.append(icon,body);
+  routeChangeEl.style.display='flex';
+}
+
+// One line of the map key: a swatch in the colour of a line on the map, and
+// what that line means.
+function legendKeyRow(swatchClass,text){
+  const row=document.createElement('div');
+  row.className='legend-row';
+  const bar=document.createElement('span');
+  bar.className='legend-bar '+swatchClass;
+  const main=document.createElement('div');
+  main.className='legend-main';
+  const det=document.createElement('div');
+  det.className='legend-detail';
+  det.textContent=text;
+  main.appendChild(det);
+  row.append(bar,main);
+  return row;
+}
+
+// Step-by-step list matching what is drawn on the map: walk, each car with its
+// colour, and each change numbered the same way as the map pins.
+function renderCarLegend(itin){
+  legendEl.innerHTML='';
+  legendEl.style.display='none';
+}
+
+/* ---------- FARES ------------------------------------------------------
+   Every price, band, ladder and rule lives in trotro-pricing.js.
+   This section only asks that file for a number and draws it. It never
+   invents a fare and never hard-codes one.
+   ---------------------------------------------------------------------- */
+
+const CONFIDENCE_RANK={high:3,medium:2,low:1};
+
+function renderFareBox(entries){
+  fareEl.innerHTML='';
+  if(!window.TrotroPricing){
+    fareEl.style.display='block';
+    fareEl.innerHTML='<div class="fare-note">trotro-pricing.js did not load, so no fare can be shown.</div>';
+    return;
+  }
+  const priced=entries.filter(e=>e&&e.result&&e.result.ok&&e.result.fare!=null);
+  if(!priced.length){fareEl.style.display='none';return;}
+
+  const total=priced.reduce((s,e)=>s+e.result.fare,0);
+  const confidence=priced.reduce((w,e)=>{
+    const c=e.result.confidence;
+    return (CONFIDENCE_RANK[c]||0)>(CONFIDENCE_RANK[w]||0)?c:w;
+  },'low');
+
+  const top=document.createElement('div');
+  top.className='fare-top';
+  const label=document.createElement('span');label.className='fare-label';label.textContent=priced.length>1?'Fares on this journey':'Approved fare';
+  const amount=document.createElement('span');amount.className='fare-amount';amount.textContent=TrotroPricing.formatCedis(total);
+  const pill=document.createElement('span');pill.className='fare-conf '+confidence;
+  pill.textContent=confidence==='high'?'Published fare':confidence==='medium'?'Corridor fare':'Estimate';
+  top.append(label,amount,pill);
+  fareEl.appendChild(top);
+
+  if(priced.length>1){
+    const list=document.createElement('div');list.className='fare-legs';
+    // Say up front that the trip is more than one car, so the extra lines are
+    // not a mystery or a double charge.
+    const why=document.createElement('div');
+    why.className='fare-leg';
+    const w=document.createElement('span');
+    w.textContent='This trip uses '+priced.length+' cars, so you pay '+priced.length+' times:';
+    list.appendChild(why);
+    priced.forEach((e,i)=>{
+      const row=document.createElement('div');row.className='fare-leg';
+      const a=document.createElement('span');a.textContent=e.label;
+      const b=document.createElement('b');b.textContent=TrotroPricing.formatCedis(e.result.fare);
+      row.append(a,b);list.appendChild(row);
+    });
+    const row=document.createElement('div');row.className='fare-leg';
+    const a=document.createElement('span');a.textContent='Total';
+    const b=document.createElement('b');b.textContent=TrotroPricing.formatCedis(total);
+    row.append(a,b);list.appendChild(row);
+    fareEl.appendChild(list);
+  }
+
+  const notes=[];
+  priced.forEach(e=>(e.result.notes||[]).forEach(n=>{if(notes.indexOf(n)<0)notes.push(n)}));
+  if(notes.length){
+    const n=document.createElement('div');n.className='fare-note';n.textContent=notes.join(' ');
+    fareEl.appendChild(n);
+  }
+
+  const src=document.createElement('div');src.className='fare-src';
+  src.textContent='GPRTU / GRTCC approved fares effective '+TrotroPricing.meta.effectiveDate+' (schedule '+TrotroPricing.version+').';
+  fareEl.appendChild(src);
+  fareEl.style.display='block';
+}
+
+// Fare for a trip with no verified route: priced from your position to the
+// searched place. Uses the real driving distance when OSRM answers, and the
+// straight-line fallback in the pricing file when it does not.
+async function showStraightLineFare(item,dest,requestId){
+  if(!window.TrotroPricing)return;
+  const startP = originPlace ? [originPlace.lon, originPlace.lat] : userPos;
+  if(!startP) return;
+  fareEl.style.display='none';
+  const fromName=TrotroPricing.nearestKnownPlaceName({lat:startP[1],lon:startP[0]});
+  let roadKm=null;
+  try{
+    const r=await osrm(startP,dest);
+    if(requestId!==activeRouteRequest)return;
+    roadKm=r.distance/1000;
+  }catch(e){/* fall back to the pricing file's own distance model */}
+  const result=TrotroPricing.getFare(
+    {name:fromName||'Your start point',lat:startP[1],lon:startP[0]},
+    {name:item.name,lat:item.lat,lon:item.lon},
+    {roadKm:roadKm}
+  );
+  renderFareBox([{label:(originPlace?originPlace.name:'Your position')+' -> '+item.name,result:result}]);
+}
+
+// Render one option as a card: each step in order, with the fare for each car.
+function renderOption(itin,fareEntries,index,isBest){
+  const card=document.createElement('div');
+  card.className='option'+(isBest?' best':'');
+
+  const head=document.createElement('div');
+  head.className='option-head';
+  const title=document.createElement('div');
+  title.className='option-title';
+  // Same wording as the big headline, so a multi-car option never reads as a
+  // single long ride.
+  title.textContent=tripTitle(itin);
+  const fare=document.createElement('div');
+  fare.className='option-fare';
+  const total=itineraryFareTotal(fareEntries);
+  fare.textContent=itin.hasRide?(total?TrotroPricing.formatCedis(total):'no fare'):'Free';
+  head.append(title,fare);
+  card.appendChild(head);
+
+  const meta=document.createElement('div');
+  meta.className='option-meta';
+  meta.textContent=minutesLabel(itin.totalMinutes)+' total'
+    +(itin.hasRide?' | '+itin.rideCount+' car'+(itin.rideCount===1?'':'s')+(itin.transfers?', changing at '+changePoints(itin).map(c=>c.atName).join(', '):''):'')
+    +(itin.anyEstimated?' | times partly estimated':'');
+  card.appendChild(meta);
+
+  // Coloured chips matching the map lines, so it is obvious this option is
+  // made of more than one car.
+  const carList=(itin.cars||[]).filter(c=>c.name);
+  if(carList.length>1){
+    const chips=document.createElement('div');
+    chips.className='trip-cars';
+    carList.forEach((c,i)=>{
+      const chip=document.createElement('span');
+      chip.className='car-chip';
+      const dot=document.createElement('span');
+      dot.className='car-dot';
+      dot.style.background=c.color||'#111827';
+      const label=document.createElement('span');
+      label.textContent=(i+1)+'. '+c.name;
+      chip.append(dot,label);
+      chips.appendChild(chip);
+    });
+    card.appendChild(chips);
+  }
+
+  const steps=document.createElement('div');
+  steps.className='option-steps';
+  const changes=changePoints(itin);
+  let carNo=0,lastCarColor='#111827';
+  itin.legs.forEach((leg,li)=>{
+    const row=document.createElement('div');
+    row.className='step';
+    if(leg.kind==='ride'){
+      carNo++;
+      lastCarColor=leg.color||lastCarColor;
+      const fareEntry=fareEntries.find(e=>e.label===leg.fromName+' -> '+leg.toName);
+      const amt=fareEntry&&fareEntry.result&&fareEntry.result.ok?TrotroPricing.formatCedis(fareEntry.result.fare):'';
+      // The tag carries the car's map colour and its number, so a step can be
+      // tied back to the line and the chip above.
+      const tag=document.createElement('span');
+      tag.className='step-tag car';
+      tag.textContent='CAR '+carNo;
+      tag.style.background=leg.color||'#111827';
+      row.appendChild(tag);
+      const main=document.createElement('div');
+      main.className='step-main';
+      const n=document.createElement('div');n.className='step-name';
+      n.textContent='Board the '+(leg.travelName||leg.routeName)+' at '+leg.fromName;
+      const d=document.createElement('div');d.className='step-detail';
+      d.textContent='Get off at '+leg.toName+' | '+prettyDistance(leg.meters/1000);
+      main.append(n,d);
+      const t=document.createElement('div');t.className='step-time';
+      t.textContent=minutesLabel(leg.minutes)+(amt?' | '+amt:'');
+      row.append(main,t);
+    }else if(leg.kind==='transfer'){
+      // Numbered to match the CHANGE pin on the map, and given the change
+      // colour, so a list of steps shows at a glance where a car is left and
+      // another one taken.
+      row.className+=' step-row-change';
+      const tag=document.createElement('span');
+      tag.className='step-tag change';
+      tag.textContent='CHANGE CAR';
+      row.appendChild(tag);
+      const main=document.createElement('div');
+      main.className='step-main';
+      const n=document.createElement('div');n.className='step-name';
+      n.textContent='Change '+(changes.indexOf(leg)+1)+' of '+changes.length+' at '+leg.atName;
+      const d=document.createElement('div');d.className='step-detail';
+      d.textContent=(leg.station?'Bus station. ':'')
+        +(leg.walked&&leg.meters?'Walk '+prettyDistance(leg.meters/1000)+' to the next stop. ':'')
+        +'Leave car '+carNo+' and board a different one'
+        +(carNo+1<=(itin.rideCount||0)?' (car '+(carNo+1)+')':'');
+      main.append(n,d);
+      const t=document.createElement('div');t.className='step-time';
+      t.textContent='~'+Math.round(leg.minutes||0)+' min wait';
+      row.append(main,t);
+    }else if(leg.kind==='arrive'){
+      // The end of the trip: a stop you get off at. This is deliberately not a
+      // walk. Walking to the destination was removed, and the honest thing to
+      // say instead is which stop the car stops at and how far the searched
+      // place still is from there.
+      row.className+=' step-row-end';
+      row.style.boxShadow='inset 3px 0 0 '+(lastCarColor||'#111827');
+      const tag=document.createElement('span');
+      tag.className='step-tag stop';
+      tag.textContent='GET OFF';
+      // The colour of the car being got off, which is the colour it is drawn
+      // in on the map.
+      tag.style.background=lastCarColor||'#111827';
+      row.appendChild(tag);
+      const main=document.createElement('div');
+      main.className='step-main';
+      const n=document.createElement('div');n.className='step-name';
+      n.textContent='Get off at '+leg.atName+(leg.station?' (bus station)':'');
+      const d=document.createElement('div');d.className='step-detail';
+      d.textContent=arrivalDetail(leg);
+      main.append(n,d);
+      const t=document.createElement('div');t.className='step-time';
+      t.textContent='end of trip';
+      row.append(main,t);
+    }else{
+      row.innerHTML='<span class="step-tag walk">WALK</span>';
+      const main=document.createElement('div');
+      main.className='step-main';
+      const n=document.createElement('div');n.className='step-name';n.textContent=leg.detail;
+      // meters are metres; prettyDistance wants km. Passing metres straight
+      // through printed a 400 m walk as "400.0 km".
+      const d=document.createElement('div');d.className='step-detail';d.textContent=prettyDistance((leg.meters||0)/1000);
+      main.append(n,d);
+      const t=document.createElement('div');t.className='step-time';t.textContent='~'+Math.round(leg.minutes||0)+' min';
+      row.append(main,t);
+    }
+    steps.appendChild(row);
+  });
+  card.appendChild(steps);
+  return card;
+}
+
+/* ---------- WHERE THE TRIP STARTS -----------------------------------------
+   This is the part a passenger gets wrong most often, and the app was wrong
+   about it silently. A browser's location can be a network-based guess, a
+   stale fix, or nothing at all; when no stop was near the position the planner
+   quietly fell back to the Circle hub, so searching "Circle" answered "walk 0
+   m, free" while the person was in Labadi.
+
+   Three things follow from that, and all three are here:
+     1. the start of the trip is always named on screen,
+     2. it can be changed to any trotro stop with one tap, which is how a wrong
+        position is corrected, and
+     3. a start that is the same place as the destination is answered as "you
+        are already here" instead of a zero-minute walk.
+   ----------------------------------------------------------------------- */
+function replan(){
+  if(lastPlace)selectPlace(lastPlace);
+}
+
+// The nearest stops to the detected position, so a wrong fix can be replaced by
+// the stop the passenger is actually standing at.
+/* ---------- WHERE THE TRIP STARTS, AND HOW THAT IS DECIDED -----------------
+   The reported bug was not a wording problem. A browser's position can be a
+   network-based guess, a stale fix, or a fix from a laptop in another country.
+   The old code planned from that position when it happened to be near a stop,
+   fell back to the Circle hub when it was not, and said nothing either way. A
+   person standing in Labadi was therefore told they were already at Circle,
+   because the trip had been planned FROM Circle.
+
+   Three rules stop that class of error rather than papering over it:
+     1. one function decides the start, and it returns how sure it is, so every
+        screen and the map are driven by the same recorded answer;
+     2. a start the app is not sure about is marked uncertain and offers the
+        stop picker, instead of being presented as fact;
+     3. a new position that moves away from the start the current trip was built
+        from rebuilds that trip, so the plan and the blue dot can never disagree.
+   ----------------------------------------------------------------------- */
+
+
+function toggleStopPicker(){
+  const open=document.getElementById('stopPicker');
+  if(open){open.remove();return;}
+  if(!window.TrotroNetwork)return;
+  const box=document.createElement('div');
+  box.id='stopPicker';
+  box.className='stop-picker';
+  const title=document.createElement('div');
+  title.className='sp-title';
+  title.textContent='Which trotro stop are you setting off from?';
+  box.appendChild(title);
+
+  const near=userPos?window.TrotroNetwork.stopsNear(userPos,6000).slice(0,6):[];
+  near.forEach(s=>{
+    const row=document.createElement('div');
+    row.className='sp-row';
+    const a=document.createElement('span');a.textContent=s.stop.displayName;
+    const b=document.createElement('span');b.textContent=prettyDistance(s.meters/1000);
+    row.append(a,b);
+    row.addEventListener('click',()=>{chosenStart=s.stop;box.remove();replan();});
+    box.appendChild(row);
+  });
+  if(near.length){
+    const gap=document.createElement('div');
+    gap.className='fare-note';
+    gap.textContent='Stops more than 6 km from the detected position are not listed.';
+    box.appendChild(gap);
+  }
+  const mine=document.createElement('div');
+  mine.className='sp-row';
+  const ma=document.createElement('span');ma.textContent='Use my position';
+  const mb=document.createElement('span');mb.textContent=chosenStart?'as detected':'detected';
+  mine.append(ma,mb);
+  mine.addEventListener('click',()=>{chosenStart=null;box.remove();replan();});
+  box.appendChild(mine);
+
+  startEl.parentNode.insertBefore(box,startEl.nextSibling);
+}
+
+function resolveStart(){
+  if(chosenStart){
+    return {point:[chosenStart.lon,chosenStart.lat],stop:chosenStart,how:'you chose this stop',sure:true};
+  }
+  if(originPlace){
+    var byName=window.TrotroNetwork?window.TrotroNetwork.matchStop(originPlace.name):null;
+    var stop=null;
+    if(byName&&byName.score>=40){
+      stop=byName.stop;
+    }else{
+      var near=window.TrotroNetwork?window.TrotroNetwork.nearestStop([originPlace.lon,originPlace.lat]):null;
+      if(near&&near.meters<=2000)stop=near.stop;
+    }
+    return {point:stop ? [stop.lon, stop.lat] : [originPlace.lon,originPlace.lat],stop:stop,how:'from search',sure:true};
+  }
+  if(!userPos||!window.TrotroNetwork){
+    return {point:null,stop:null,how:'',sure:false};
+  }
+  var near=window.TrotroNetwork.nearestStop(userPos);
+  var walkReach=window.TrotroNetwork.meta.accessWalkM;
+  if(userAccuracy&&userAccuracy>800){
+    return {point:userPos,stop:near?near.stop:null,
+      how:'your position is only accurate to about '+prettyDistance(userAccuracy/1000),sure:false};
+  }
+  if(near&&near.meters>START_UNSURE_M){
+    return {point:userPos,stop:near.stop,
+      how:'your position is '+prettyDistance(near.meters/1000)+' from the nearest trotro stop, so it may be the wrong place',sure:false};
+  }
+  if(near&&near.meters<=walkReach){
+    return {point:userPos,stop:near.stop,
+      how:'nearest stop '+near.stop.displayName+' ('+prettyDistance(near.meters/1000)+')',sure:true};
+  }
+  return {point:userPos,stop:near?near.stop:null,
+    how:'no trotro stop is within walking distance of your position',sure:false};
+}
+// Name the start of the trip, and offer the fix when the app is not sure.
+
+function renderStartRow(){
+  const open=document.getElementById('stopPicker');
+  if(open)open.remove();
+  if(!activeStart||!activeStart.point){startEl.style.display='none';return;}
+
+  startEl.innerHTML='';
+  const label=document.createElement('span');
+  label.className='sr-label';
+  label.textContent='Start';
+  const btn=document.createElement('button');
+  btn.type='button';
+  btn.className='start-btn'+(activeStart.sure?'':' unsure');
+  btn.textContent=activeStart.stop?activeStart.stop.displayName:'my position';
+
+  const note=document.createElement('span');
+  note.textContent=activeStart.how||'';
+  if(!activeStart.sure)note.textContent+=(note.textContent?' * ':'')+'tap to set the stop you are at';
+
+  btn.addEventListener('click',toggleStopPicker);
+  startEl.append(label,btn,note);
+  startEl.style.display='flex';
+}
+
+async function selectPlace(item){
+  resultsEl.style.display='none';
+  activeInput.value=item.name;
+  var dest=[item.lon,item.lat];
+  new maplibregl.Popup({offset:20}).setLngLat(dest).setHTML('<strong>'+escapeHtml(item.name)+'</strong><br><small>'+escapeHtml(item.address||'Ghana')+'</small>').addTo(map);
+
+  if(activeInput === startSearchEl) {
+    originPlace = item;
+    chosenStart = null;
+    if (!lastPlace) {
+      headline.textContent='Start selected';
+      subline.textContent='Now enter your destination.';
+      map.flyTo({center:[originPlace.lon,originPlace.lat],zoom:15,duration:900});
+      return;
+    }
+  } else {
+    lastPlace = item;
+    if(!originPlace && userPos){
+      startSearchEl.value = detectedPlaceName;
+    }
+    if (!originPlace && !userPos) {
+      headline.textContent='Where are you starting from?';
+      subline.textContent='Allow location access or type a start location.';
+      return;
+    }
+  }
+
+  dest = [lastPlace.lon, lastPlace.lat];
+  item = lastPlace;
+
+  clearItinerary();
+  routeInfo.style.display='block';
+  routeTitle.textContent='Working out how to get there...';
+  etaMain.textContent='--';
+  routeMeta.textContent='Finding which car passes near you, where to change, and the road times...';
+  // Clear the multi-car cues as well, so a previous trip's interchange is not
+  // left on screen while the next one is being worked out.
+  routeCarsEl.innerHTML='';routeCarsEl.style.display='none';
+  routeChangeEl.innerHTML='';routeChangeEl.style.display='none';
+  legendEl.innerHTML='';legendEl.style.display='none';
+  etaArrival.textContent='';
+  journeyEl.innerHTML='';
+  fareEl.style.display='none';
+  startEl.style.display='none';
+
+  const requestId=++activeRouteRequest;
+
+  if(!window.TrotroNetwork){
+    routeTitle.textContent='Route data unavailable';
+    etaMain.textContent='--';
+    routeMeta.textContent='trotro-network.js did not load, so no journey can be planned.';
+    journeyEl.innerHTML='<div class="notice">The stop and route network could not be loaded. Check that trotro-network.js sits next to this page.</div>';
+    return;
+  }
+
+  // Which stops can you reach on foot, and which car can you catch?
+  /* A place name from the search box is a POINT, and the point a public
+     geocoder returns for Greater Accra is often nowhere near where a trotro
+     actually stops: measured against this network "Ablekuma" comes back 6 km
+     out, "Adenta" 2.4 km and "Labadi" 3.8 km. Planning to one of those points
+     makes the planner fail, and a failed plan is what shows a straight line
+     with no cars and no change of car.
+
+     The route network knows its own stops by name, so the NAME is resolved to
+     a real stop first and the geocoder coordinate is only a fallback. This is
+     why tapping any "Ablekuma" result now lands on the Ablekuma stop.
+
+     Planning to a stop is also what makes the trip honest: the car ends at a
+     stop, not at the searched place, so the last leg says which stop you get
+     off at instead of inventing a walk from that stop to the destination. */
+  const typed=searchEl.value.trim();
+  const byName=(window.TrotroNetwork.matchStop((item&&item.name)||'')
+             ||window.TrotroNetwork.matchStop(typed));
+  // Snap destination to a real stop. The geocoder coordinate for an area
+  // like "Ablekuma" or "Adenta" can be kilometres from the actual stop.
+  let destPoint=dest;
+  if(byName&&byName.score>=40){
+    // Named stop: use its exact coordinates
+    destPoint=[byName.stop.lon,byName.stop.lat];
+  }else{
+    // No stop of that name: snap to nearest stop within egress walk distance
+    const snapM=TrotroNetwork.meta.egressWalkM||3000;
+    const namedStop=TrotroNetwork.nearestStop(dest);
+    if(namedStop&&namedStop.meters<=snapM){
+      destPoint=[namedStop.stop.lon,namedStop.stop.lat];
+    }
+  }
+
+  /* One decision, one record. Every screen below, and the map, are drawn from
+     `planStart`, so what the app says it started from and what it drew cannot
+     disagree. The old code decided this inline and kept the answer only in a
+     local, which is exactly how a trip planned from the Circle hub could be
+     shown without anyone noticing. */
+  activeStart=resolveStart();
+  activeStart.at=Date.now();
+  planStart=activeStart;
+  renderStartRow();
+  const startPoint=activeStart.point;
+
+  if(!startPoint){
+    routeTitle.textContent='Location unavailable';
+    etaMain.textContent='--';
+    routeMeta.textContent='Could not determine your starting point. Allow location access or type a start location.';
+    return;
+  }
+
+  // Show nearest stops to user in the info panel
+  const stopsFromUser = TrotroNetwork.stopsNear(startPoint, TrotroNetwork.meta.accessWalkM);
+  if(stopsFromUser.length){
+    const stopNames = stopsFromUser.slice(0,3).map(s=>s.stop.displayName+' ('+Math.round(s.meters)+' m)').join(', ');
+    routeMeta.textContent='Nearest stops to you: '+stopNames+'. Finding your route...';
+  }
+
+  /* You are already where you asked to go. */
+  if(startPoint&&TrotroNetwork.haversineM(startPoint,destPoint)<150){
+    const at=byName&&byName.score>=40?byName.stop:null;
+    routeTitle.textContent='You are already here';
+    etaMain.textContent='0 min';
+    routeMeta.textContent=(at?'You are at '+at.displayName+'. ':'')
+      +'That is the place you searched for, so there is nothing to plan.';
+    etaArrival.textContent='';
+    journeyEl.innerHTML='<div class="notice">You are already at '
+      +(at?at.displayName:'the place you searched for')
+      +'. If that is wrong, the position this app is using is wrong: tap <b>Start</b> and pick the stop you are really at.</div>';
+    fareEl.style.display='none';
+    map.flyTo({center:destPoint,zoom:15,duration:900});
+    
+    return;
+  }
+
+  const plan=TrotroNetwork.plan(startPoint,destPoint);
+
+  if(!plan.ok){
+    routeTitle.textContent='No trotro journey found';
+    etaMain.textContent='--';
+    routeMeta.textContent=plan.reason;
+    etaArrival.textContent='';
+    journeyEl.innerHTML='';
+
+    /* A refusal is only useful if it says what to do next. Two very different
+       things can be refused:
+         - your position is nowhere near a stop (no car can start from you), or
+         - the place you searched is nowhere near a stop (no car ends there),
+           which is what happens for anywhere outside the 42 stops of Greater
+           Accra: Dodowa, Aburi, Kumasi, Takoradi, and the geocoder's stray
+           "Teshie" hits that turn out to be in Tema.
+       The old notice always listed the stops near YOU, even when the searched
+       place was the problem, so the answer was always "no" and never a way
+       forward. Now the relevant end is named, the closest stop is given with
+       its distance, and it can be tapped to plan to it. */
+    const destProblem=/destination/i.test(plan.reason||'');
+    const title=document.createElement('div');
+    title.className='notice';
+    const strong=document.createElement('b');
+    strong.textContent='This is not a trotro route. ';
+    title.appendChild(strong);
+    title.appendChild(document.createTextNode(
+      !activeStart.sure
+        ? 'The position this app planned from is not one it can be sure of, so check the Start row before trusting any time here.'
+        : destProblem
+          ? 'There is no trotro stop near where you searched. Troto only runs between the stops on this network, which covers Greater Accra, so a place outside it cannot be planned to. Search a stop name such as Circle or Kaneshie to plan a real trip.'
+          : 'Your position is more than '+prettyDistance(TrotroNetwork.meta.accessWalkM/1000)+' from any stop on this network, so no car can start from where you are.'
+    ));
+    title.appendChild(document.createTextNode(
+      ' The fare below is an estimate for covering the distance directly, not a trotro fare.'
+    ));
+    journeyEl.appendChild(title);
+
+    const offers=((destProblem?plan.stopsNearDestination:plan.stopsNearOrigin)||[]).slice(0,3);
+    if(offers.length){
+      const label=document.createElement('div');
+      label.className='notice';
+      label.textContent=destProblem
+        ? 'The closest trotro stop to where you searched is '+(offers.length>1?'one of these: ':'')
+        : 'The closest stops to you are:';
+      journeyEl.appendChild(label);
+      offers.forEach(s=>{
+        const row=document.createElement('div');
+        row.className='notice stop-offer';
+        const name=document.createElement('b');
+        name.textContent=s.stop.displayName+' ('+prettyDistance(s.meters/1000)+')';
+        row.appendChild(name);
+        row.appendChild(document.createTextNode(destProblem
+          ? '  tap to plan the trip to this stop'
+          : '  tap to plan from here'));
+        row.addEventListener('click',()=>selectPlace({
+          name:s.stop.displayName, lon:s.stop.lon, lat:s.stop.lat,
+          address:s.stop.stationNote||'Trotro stop', type:'transportation'
+        }));
+        journeyEl.appendChild(row);
+      });
+    }else if(destProblem){
+      // Nothing within reach: say how far the network actually stops, so the
+      // reason for the refusal is a fact rather than a shrug.
+      const nearest=window.TrotroNetwork?window.TrotroNetwork.nearestStop(destPoint):null;
+      if(nearest){
+        const line=document.createElement('div');
+        line.className='notice';
+        line.textContent='The nearest trotro stop on this network is '+nearest.stop.displayName
+          +', '+prettyDistance(nearest.meters/1000)+' away.';
+        journeyEl.appendChild(line);
+      }
+    }
+    map.flyTo({center:dest,zoom:14,duration:900});
+    // A fare does not depend on the route network, so still price it.
+    showStraightLineFare(item,destPoint,requestId);
+    // The start is shown on a refusal too, because a wrong position is one of
+    // the two reasons a trip cannot be planned.
+    
+    return;
+  }
+
+  // Replace the network's straight-line estimates with real driving times.
+  const options=[];
+  for(const itin of plan.itineraries){
+    // First give every car a colour that cannot be mistaken for the colour of
+    // the car before it, then hydrate: the map, the chips, the steps and the
+    // legend all read the colour off the leg.
+    assignCarColors(itin);
+    const segments=await hydrateItinerary(itin);
+    if(requestId!==activeRouteRequest)return;
+    options.push({itin:itin,segments:segments,fareEntries:priceItinerary(itin)});
+  }
+  options.sort((a,b)=>a.itin.cost-b.itin.cost);
+
+  // An option has to trade something off to earn its place. The planner ranks
+  // on its own straight-line estimate, so it can rank a detour well: a trip to
+  // Ablekuma was offered "Circle -> Dansoman" purely because those two stops
+  // sit 400 m apart, so the car ran kilometres past the destination and the
+  // passenger walked back. Real driving times and real fares are known by now,
+  // so drop any option that is no quicker, no cheaper and no simpler than one
+  // already in the list. A cheaper but slower option is a genuine choice and is
+  // always kept.
+  const ranked=options.map(o=>({
+    option:o,
+    minutes:o.itin.totalMinutes||0,
+    fare:itineraryFareTotal(o.fareEntries),
+    steps:(o.itin.rideCount||0)+(o.itin.transfers||0)
+  }));
+  const shown=ranked.filter(a=>!ranked.some(b=>b!==a
+    && b.minutes<=a.minutes+0.5
+    && b.fare<=a.fare+0.01
+    && b.steps<=a.steps
+    && (b.minutes<a.minutes-0.5||b.fare<a.fare-0.01||b.steps<a.steps)
+  )).map(r=>r.option);
+  // Never leave the page with nothing to show, whatever the numbers do.
+  if(!shown.length)shown.push(options[0]);
+
+  // Show the quickest journey first, using the real driving times rather than
+  // the planner's straight-line estimate. The headline and the first card then
+  // always agree: before this, a Circle -> Dansoman trip put the fastest option
+  // third and read the time off a slower one. Fare, how close the last stop
+  // leaves you, and how few cars are involved break a tie; they never outrank
+  // actually being quicker.
+  shown.sort((a,b)=>
+    (a.itin.totalMinutes-b.itin.totalMinutes)
+    ||(itineraryFareTotal(a.fareEntries)-itineraryFareTotal(b.fareEntries))
+    ||(endGap(a.itin)-endGap(b.itin))
+    ||((a.itin.rideCount||0)+(a.itin.transfers||0)-(b.itin.rideCount||0)-(b.itin.transfers||0)));
+
+  const best=shown[0];
+  const bi=best.itin;
+  const totalMinutes=Math.max(1,Math.round(bi.totalMinutes));
+  const arrival=new Date(Date.now()+totalMinutes*60000);
+
+  routeTitle.textContent=tripTitle(bi);
+  let currentVal = 0;
+  const targetVal = totalMinutes;
+  const duration = 1200; // ms
+  const startT = performance.now();
+  
+  etaMain.classList.add('pop');
+  const loaderTrack = document.getElementById('etaLoaderTrack');
+  const loaderBar = document.getElementById('etaLoaderBar');
+  if(loaderTrack) {
+    loaderTrack.classList.add('show');
+    loaderBar.style.width = '0%';
+  }
+  
+  function animateETA(now) {
+    const elapsed = now - startT;
+    const progress = Math.min(elapsed / duration, 1);
+    const easeOut = 1 - Math.pow(1 - progress, 4);
+    const val = Math.floor(easeOut * targetVal);
+    
+    etaMain.textContent = val + ' min';
+    if(loaderBar) loaderBar.style.width = (easeOut * 100) + '%';
+    
+    if (progress < 1) {
+      requestAnimationFrame(animateETA);
+    } else {
+      etaMain.classList.remove('pop');
+      if(loaderTrack) {
+        setTimeout(() => loaderTrack.classList.remove('show'), 400);
+      }
+    }
+  }
+  requestAnimationFrame(animateETA);
+  routeMeta.textContent=prettyDistance((bi.totalMeters||0)/1000)+' travelled * walking, waiting and riding';
+  etaArrival.textContent='Estimated arrival * '+arrival.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+  renderCarChips(bi);
+  renderChangeBanner(bi);
+  renderCarLegend(bi);
+  // Name the start of the trip on every result, not only when something failed.
+  
+
+  renderFareBox(best.fareEntries);
+
+  journeyEl.innerHTML='';
+  const head=document.createElement('div');
+  head.className='journey-head';
+  // One main way, not a list to pick from. The planner still works out the
+  // alternatives and drops the ones that lose to this one, so the choice being
+  // shown is the best of everything considered - but the passenger gets the
+  // answer, not a decision to make.
+  const h1=document.createElement('span');h1.textContent='Your journey';
+  const h2=document.createElement('span');
+  h2.textContent=shown.length>1?'the best of '+shown.length+' ways found':'1 way found';
+  head.append(h1,h2);
+  journeyEl.appendChild(head);
+
+  const mainCard=renderOption(best.itin,best.fareEntries,0,false);
+  mainCard.classList.add('only');
+  journeyEl.appendChild(mainCard);
+
+  // Say so when the road times could not be confirmed, so an approximate line
+  // is never presented as a measured one. Only the data-quality warning is
+  // left: the three notes that followed it (where the stop list comes from,
+  // which stop a searched name resolved to, and which start point was used)
+  // explained how the tool works rather than the journey, and they sat under
+  // every single result.
+  if(bi.anyEstimated){
+    const n=document.createElement('div');
+    n.className='notice';
+    n.textContent='Road times are approximate: the live driving service did not answer for part of this trip, so those sections use the network estimate and are drawn as a straight line.';
+    journeyEl.appendChild(n);
+  }
+
+  drawItinerary(best.segments,startPoint,destPoint,bi);
+}
+
+map.on('load',()=>startLocation());
+})();
+</script>
+</body>
+</html>
