@@ -1,0 +1,1310 @@
+{
+  "lastUpdated": "2026-10-12T17:44:05.374Z",
+  "activePhase": "phase_1_greater_accra",
+  "completedCorridors": [
+    "circle_kaneshie_dansoman",
+    "kaneshie_chorkor_mamprobi",
+    "tema_station_osu_labadi",
+    "tetteh_quarshie_spintex_coastal",
+    "37_tradefair_teshie_nungua",
+    "circle_airport_cantonments",
+    "madina_ashaley_botwe",
+    "adenta_frafraha_dodowa",
+    "atomic_haatso_agbogba",
+    "achimota_dome_kwabenya_ashongman",
+    "kwabenya_pokrom_abokobi",
+    "lapaz_sowutuom_anyaa_ablekuma",
+    "lapaz_pokuase_amasaman",
+    "kaneshie_odorkor_mallam_gbawe",
+    "mallam_weija_bortianor_kasoa",
+    "circle_motorway_tema_com1",
+    "ashaiman_afienya_dawhenya",
+    "accra_nsawam_suhum_koforidua",
+    "madina_aburi_mamfe_akropong",
+    "kasoa_winneba_mankessim_capecoast",
+    "kejetia_knust_ayeduase",
+    "kejetia_suame_tafo_mamponteng",
+    "kejetia_sofoline_abuakwa",
+    "asafo_atonsu_dompoase",
+    "takoradi_sekondi_essikado",
+    "takoradi_kwesimintsim_anaji",
+    "capecoast_ucc_elmina",
+    "circle_pigfarm_dzorwulu",
+    "kaneshie_darkuman_lapaz",
+    "dansoman_agege_mamprobi",
+    "mega_accra_infill",
+    "mega_kumasi",
+    "test",
+    "mega_takoradi",
+    "mega_cape_coast",
+    "mega_eastern",
+    "mega_tamale",
+    "mega_custom_sunyani_to_techiman"
+  ],
+  "failedCorridors": {},
+  "expandedRoutes": [
+    {
+      "id": "circle-dansoman-1",
+      "name": "Circle ⇄ Dansoman",
+      "corridorId": "circle_kaneshie_dansoman",
+      "corridorName": "Circle ⇄ Kaneshie ⇄ Dansoman / Exhibition Corridor",
+      "stopsCount": 7,
+      "addedAt": "2026-10-11T18:30:00.000Z"
+    },
+    {
+      "id": "circle-dansoman-2",
+      "name": "Dansoman ⇄ Circle",
+      "corridorId": "circle_kaneshie_dansoman",
+      "corridorName": "Circle ⇄ Kaneshie ⇄ Dansoman / Exhibition Corridor",
+      "stopsCount": 7,
+      "addedAt": "2026-10-11T18:30:00.000Z"
+    },
+    {
+      "id": "kaneshie-chorkor-1",
+      "name": "Kaneshie ⇄ Chorkor",
+      "corridorId": "kaneshie_chorkor_mamprobi",
+      "corridorName": "Kaneshie ⇄ Mamprobi ⇄ Chorkor / Korle Bu Corridor",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-11T18:43:03.762Z"
+    },
+    {
+      "id": "kaneshie-chorkor-2",
+      "name": "Chorkor ⇄ Kaneshie",
+      "corridorId": "kaneshie_chorkor_mamprobi",
+      "corridorName": "Kaneshie ⇄ Mamprobi ⇄ Chorkor / Korle Bu Corridor",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-11T18:43:03.763Z"
+    },
+    {
+      "id": "tema-osu-labadi-1",
+      "name": "Tema Station ⇄ Labadi Beach",
+      "corridorId": "tema_station_osu_labadi",
+      "corridorName": "Tema Station ⇄ Osu RE ⇄ Labadi Beach Corridor",
+      "stopsCount": 10,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:25:42.855Z"
+    },
+    {
+      "id": "tema-osu-labadi-2",
+      "name": "Labadi Beach ⇄ Tema Station",
+      "corridorId": "tema_station_osu_labadi",
+      "corridorName": "Tema Station ⇄ Osu RE ⇄ Labadi Beach Corridor",
+      "stopsCount": 10,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:25:42.855Z"
+    },
+    {
+      "id": "tetteh-quarshie-to-sakumono-1",
+      "name": "Tetteh Quarshie ⇄ Sakumono Estate",
+      "corridorId": "tetteh_quarshie_spintex_coastal",
+      "corridorName": "Tetteh Quarshie ⇄ Spintex Road ⇄ Sakumono Estate Corridor",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:34:43.261Z"
+    },
+    {
+      "id": "sakumono-to-tetteh-quarshie-2",
+      "name": "Sakumono Estate ⇄ Tetteh Quarshie",
+      "corridorId": "tetteh_quarshie_spintex_coastal",
+      "corridorName": "Tetteh Quarshie ⇄ Spintex Road ⇄ Sakumono Estate Corridor",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:34:43.261Z"
+    },
+    {
+      "id": "37-nungua-1",
+      "name": "37 ⇄ Nungua",
+      "corridorId": "37_tradefair_teshie_nungua",
+      "corridorName": "37 ⇄ Burma Camp ⇄ Teshie ⇄ Nungua Barrier Corridor",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:34:44.816Z"
+    },
+    {
+      "id": "nungua-37-2",
+      "name": "Nungua ⇄ 37",
+      "corridorId": "37_tradefair_teshie_nungua",
+      "corridorName": "37 ⇄ Burma Camp ⇄ Teshie ⇄ Nungua Barrier Corridor",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:34:44.816Z"
+    },
+    {
+      "id": "circle-cantonments-1",
+      "name": "Circle ⇄ Cantonments",
+      "corridorId": "circle_airport_cantonments",
+      "corridorName": "Circle ⇄ 37 ⇄ Airport Residential ⇄ Cantonments",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:34:46.444Z"
+    },
+    {
+      "id": "cantonments-circle-2",
+      "name": "Cantonments ⇄ Circle",
+      "corridorId": "circle_airport_cantonments",
+      "corridorName": "Circle ⇄ 37 ⇄ Airport Residential ⇄ Cantonments",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:34:46.444Z"
+    },
+    {
+      "id": "madina-ashaley-1",
+      "name": "Madina Zongo Junction ⇄ School Junction",
+      "corridorId": "madina_ashaley_botwe",
+      "corridorName": "Madina Zongo Junction ⇄ Ashaley Botwe ⇄ School Junction Corridor",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:36:06.093Z"
+    },
+    {
+      "id": "madina-ashaley-2",
+      "name": "School Junction ⇄ Madina Zongo Junction",
+      "corridorId": "madina_ashaley_botwe",
+      "corridorName": "Madina Zongo Junction ⇄ Ashaley Botwe ⇄ School Junction Corridor",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:36:06.093Z"
+    },
+    {
+      "id": "adenta-dodowa-1",
+      "name": "Adenta Barrier ⇄ Dodowa",
+      "corridorId": "adenta_frafraha_dodowa",
+      "corridorName": "Adenta Barrier ⇄ Frafraha ⇄ Amrahia ⇄ Dodowa Corridor",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:36:15.972Z"
+    },
+    {
+      "id": "adenta-dodowa-2",
+      "name": "Dodowa ⇄ Adenta Barrier",
+      "corridorId": "adenta_frafraha_dodowa",
+      "corridorName": "Adenta Barrier ⇄ Frafraha ⇄ Amrahia ⇄ Dodowa Corridor",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:36:15.972Z"
+    },
+    {
+      "id": "atomic-haatso-agbogba-1",
+      "name": "Atomic Junction ⇄ Agbogba",
+      "corridorId": "atomic_haatso_agbogba",
+      "corridorName": "Atomic Junction ⇄ Haatso Supermarket ⇄ Agbogba Junction",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:36:18.362Z"
+    },
+    {
+      "id": "atomic-haatso-agbogba-2",
+      "name": "Agbogba ⇄ Atomic Junction",
+      "corridorId": "atomic_haatso_agbogba",
+      "corridorName": "Atomic Junction ⇄ Haatso Supermarket ⇄ Agbogba Junction",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:36:18.362Z"
+    },
+    {
+      "id": "achimota-ashongman-1",
+      "name": "Achimota Terminal ⇄ Ashongman Estate",
+      "corridorId": "achimota_dome_kwabenya_ashongman",
+      "corridorName": "Achimota Terminal ⇄ Dome ⇄ Kwabenya ⇄ Ashongman Estate Corridor",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:36:25.884Z"
+    },
+    {
+      "id": "achimota-ashongman-2",
+      "name": "Ashongman Estate ⇄ Achimota Terminal",
+      "corridorId": "achimota_dome_kwabenya_ashongman",
+      "corridorName": "Achimota Terminal ⇄ Dome ⇄ Kwabenya ⇄ Ashongman Estate Corridor",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:36:25.884Z"
+    },
+    {
+      "id": "kwabenya-abokobi-1",
+      "name": "Kwabenya ⇄ Abokobi",
+      "corridorId": "kwabenya_pokrom_abokobi",
+      "corridorName": "Kwabenya ⇄ Berekuso ⇄ Abokobi Corridor",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:36:39.521Z"
+    },
+    {
+      "id": "abokobi-kwabenya-2",
+      "name": "Abokobi ⇄ Kwabenya",
+      "corridorId": "kwabenya_pokrom_abokobi",
+      "corridorName": "Kwabenya ⇄ Berekuso ⇄ Abokobi Corridor",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:36:39.521Z"
+    },
+    {
+      "id": "lapaz-ablekuma-1",
+      "name": "Lapaz ⇄ Ablekuma",
+      "corridorId": "lapaz_sowutuom_anyaa_ablekuma",
+      "corridorName": "Lapaz ⇄ Chantan ⇄ Sowutuom ⇄ Anyaa ⇄ Ablekuma Corridor",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:36:46.761Z"
+    },
+    {
+      "id": "lapaz-ablekuma-2",
+      "name": "Ablekuma ⇄ Lapaz",
+      "corridorId": "lapaz_sowutuom_anyaa_ablekuma",
+      "corridorName": "Lapaz ⇄ Chantan ⇄ Sowutuom ⇄ Anyaa ⇄ Ablekuma Corridor",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:36:46.761Z"
+    },
+    {
+      "id": "lapaz-amasaman-1",
+      "name": "Lapaz ⇄ Amasaman",
+      "corridorId": "lapaz_pokuase_amasaman",
+      "corridorName": "Lapaz ⇄ Achimota ⇄ Pokuase Interchange ⇄ Amasaman Corridor",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:38:54.275Z"
+    },
+    {
+      "id": "lapaz-amasaman-2",
+      "name": "Amasaman ⇄ Lapaz",
+      "corridorId": "lapaz_pokuase_amasaman",
+      "corridorName": "Lapaz ⇄ Achimota ⇄ Pokuase Interchange ⇄ Amasaman Corridor",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T11:38:54.275Z"
+    },
+    {
+      "id": "kaneshie-gbawe-1",
+      "name": "Kaneshie ⇄ Gbawe Zero",
+      "corridorId": "kaneshie_odorkor_mallam_gbawe",
+      "corridorName": "Kaneshie ⇄ Odorkor Official Town ⇄ Mallam ⇄ Gbawe Zero Corridor",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T12:51:10.173Z"
+    },
+    {
+      "id": "kaneshie-gbawe-2",
+      "name": "Gbawe Zero ⇄ Kaneshie",
+      "corridorId": "kaneshie_odorkor_mallam_gbawe",
+      "corridorName": "Kaneshie ⇄ Odorkor Official Town ⇄ Mallam ⇄ Gbawe Zero Corridor",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T12:51:10.173Z"
+    },
+    {
+      "id": "mallam-to-kasoa-1",
+      "name": "Mallam Junction ⇄ Kasoa New Market",
+      "corridorId": "mallam_weija_bortianor_kasoa",
+      "corridorName": "Mallam Junction ⇄ Weija ⇄ Tetegu ⇄ Kasoa Old Barrier ⇄ Kasoa New Market",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T12:53:46.130Z"
+    },
+    {
+      "id": "kasoa-to-mallam-2",
+      "name": "Kasoa New Market ⇄ Mallam Junction",
+      "corridorId": "mallam_weija_bortianor_kasoa",
+      "corridorName": "Mallam Junction ⇄ Weija ⇄ Tetegu ⇄ Kasoa Old Barrier ⇄ Kasoa New Market",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T12:53:46.130Z"
+    },
+    {
+      "id": "circle-to-community1-1",
+      "name": "Circle ⇄ Tema Community 1",
+      "corridorId": "circle_motorway_tema_com1",
+      "corridorName": "Circle ⇄ Accra-Tema Motorway ⇄ Tema Community 1 Hub",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:09:56.582Z"
+    },
+    {
+      "id": "circle-to-community1-2",
+      "name": "Tema Community 1 ⇄ Circle",
+      "corridorId": "circle_motorway_tema_com1",
+      "corridorName": "Circle ⇄ Accra-Tema Motorway ⇄ Tema Community 1 Hub",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:09:56.582Z"
+    },
+    {
+      "id": "ashaiman-dawhenya-1",
+      "name": "Ashaiman Timber Market ⇄ Dawhenya",
+      "corridorId": "ashaiman_afienya_dawhenya",
+      "corridorName": "Ashaiman Timber Market ⇄ Michel Camp ⇄ Afienya ⇄ Dawhenya",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:10:24.816Z"
+    },
+    {
+      "id": "ashaiman-dawhenya-2",
+      "name": "Dawhenya ⇄ Ashaiman Timber Market",
+      "corridorId": "ashaiman_afienya_dawhenya",
+      "corridorName": "Ashaiman Timber Market ⇄ Michel Camp ⇄ Afienya ⇄ Dawhenya",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:10:24.816Z"
+    },
+    {
+      "id": "circle-nsawam-1",
+      "name": "Circle ⇄ Koforidua Main Station",
+      "corridorId": "accra_nsawam_suhum_koforidua",
+      "corridorName": "Circle ⇄ Nsawam ⇄ Suhum ⇄ Koforidua Main Station",
+      "stopsCount": 6,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:13:05.279Z"
+    },
+    {
+      "id": "circle-nsawam-2",
+      "name": "Koforidua Main Station ⇄ Circle",
+      "corridorId": "accra_nsawam_suhum_koforidua",
+      "corridorName": "Circle ⇄ Nsawam ⇄ Suhum ⇄ Koforidua Main Station",
+      "stopsCount": 6,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:13:05.279Z"
+    },
+    {
+      "id": "madina-akropong-1",
+      "name": "Madina ⇄ Akropong",
+      "corridorId": "madina_aburi_mamfe_akropong",
+      "corridorName": "Madina ⇄ Peduase ⇄ Aburi ⇄ Mamfe ⇄ Akropong",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:13:34.747Z"
+    },
+    {
+      "id": "madina-akropong-2",
+      "name": "Akropong ⇄ Madina",
+      "corridorId": "madina_aburi_mamfe_akropong",
+      "corridorName": "Madina ⇄ Peduase ⇄ Aburi ⇄ Mamfe ⇄ Akropong",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:13:34.747Z"
+    },
+    {
+      "id": "kasoa-capecoast-1",
+      "name": "Kasoa Overhead ⇄ Kotokuraba Station",
+      "corridorId": "kasoa_winneba_mankessim_capecoast",
+      "corridorName": "Kasoa Overhead ⇄ Winneba Junction ⇄ Mankessim ⇄ Cape Coast Kotokuraba",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:40:56.132Z"
+    },
+    {
+      "id": "kasoa-capecoast-2",
+      "name": "Kotokuraba Station ⇄ Kasoa Overhead",
+      "corridorId": "kasoa_winneba_mankessim_capecoast",
+      "corridorName": "Kasoa Overhead ⇄ Winneba Junction ⇄ Mankessim ⇄ Cape Coast Kotokuraba",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:40:56.132Z"
+    },
+    {
+      "id": "kejetia-ayeduase-1",
+      "name": "Kejetia ⇄ Ayeduase",
+      "corridorId": "kejetia_knust_ayeduase",
+      "corridorName": "Kejetia ⇄ Anloga Junction ⇄ KNUST Commercial ⇄ Ayeduase",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:41:42.012Z"
+    },
+    {
+      "id": "kejetia-ayeduase-2",
+      "name": "Ayeduase ⇄ Kejetia",
+      "corridorId": "kejetia_knust_ayeduase",
+      "corridorName": "Kejetia ⇄ Anloga Junction ⇄ KNUST Commercial ⇄ Ayeduase",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:41:42.012Z"
+    },
+    {
+      "id": "kejetia-mamponteng-1",
+      "name": "Kejetia ⇄ Mamponteng",
+      "corridorId": "kejetia_suame_tafo_mamponteng",
+      "corridorName": "Kejetia ⇄ Suame Roundabout ⇄ Old Tafo ⇄ Pankrono ⇄ Mamponteng",
+      "stopsCount": 6,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:58:11.216Z"
+    },
+    {
+      "id": "kejetia-mamponteng-2",
+      "name": "Mamponteng ⇄ Kejetia",
+      "corridorId": "kejetia_suame_tafo_mamponteng",
+      "corridorName": "Kejetia ⇄ Suame Roundabout ⇄ Old Tafo ⇄ Pankrono ⇄ Mamponteng",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:58:11.216Z"
+    },
+    {
+      "id": "kejetia-abuakwa-1",
+      "name": "Kejetia ⇄ Abuakwa",
+      "corridorId": "kejetia_sofoline_abuakwa",
+      "corridorName": "Kejetia ⇄ Santasi ⇄ Sofoline Interchange ⇄ Tanoso ⇄ Abuakwa",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:58:50.153Z"
+    },
+    {
+      "id": "kejetia-abuakwa-2",
+      "name": "Abuakwa ⇄ Kejetia",
+      "corridorId": "kejetia_sofoline_abuakwa",
+      "corridorName": "Kejetia ⇄ Santasi ⇄ Sofoline Interchange ⇄ Tanoso ⇄ Abuakwa",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:58:50.153Z"
+    },
+    {
+      "id": "asafo-dompoase-1",
+      "name": "Asafo ⇄ Dompoase",
+      "corridorId": "asafo_atonsu_dompoase",
+      "corridorName": "Asafo Interchange ⇄ Ahensan ⇄ Atonsu ⇄ Kumasi High School ⇄ Dompoase",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:59:25.802Z"
+    },
+    {
+      "id": "asafo-dompoase-2",
+      "name": "Dompoase ⇄ Asafo",
+      "corridorId": "asafo_atonsu_dompoase",
+      "corridorName": "Asafo Interchange ⇄ Ahensan ⇄ Atonsu ⇄ Kumasi High School ⇄ Dompoase",
+      "stopsCount": 10,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:59:25.802Z"
+    },
+    {
+      "id": "takoradi-essikado-1",
+      "name": "Takoradi Market Circle ⇄ Essikado",
+      "corridorId": "takoradi_sekondi_essikado",
+      "corridorName": "Takoradi Market Circle ⇄ Effia Nkwanta ⇄ Sekondi Station ⇄ Essikado",
+      "stopsCount": 12,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:59:55.326Z"
+    },
+    {
+      "id": "takoradi-essikado-2",
+      "name": "Essikado ⇄ Takoradi Market Circle",
+      "corridorId": "takoradi_sekondi_essikado",
+      "corridorName": "Takoradi Market Circle ⇄ Effia Nkwanta ⇄ Sekondi Station ⇄ Essikado",
+      "stopsCount": 12,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:59:55.326Z"
+    },
+    {
+      "id": "takoradi-essikado-fwd",
+      "name": "Takoradi Market Circle ⇄ Essikado",
+      "corridorId": "takoradi_sekondi_essikado",
+      "corridorName": "Takoradi Market Circle ⇄ Effia Nkwanta ⇄ Sekondi Station ⇄ Essikado",
+      "stopsCount": 13,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:59:57.780Z"
+    },
+    {
+      "id": "takoradi-essikado-return",
+      "name": "Essikado ⇄ Takoradi Market Circle",
+      "corridorId": "takoradi_sekondi_essikado",
+      "corridorName": "Takoradi Market Circle ⇄ Effia Nkwanta ⇄ Sekondi Station ⇄ Essikado",
+      "stopsCount": 13,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T13:59:57.780Z"
+    },
+    {
+      "id": "takoradi-marketcircle-to-kojokrom-1",
+      "name": "Takoradi Market Circle ⇄ Kojokrom",
+      "corridorId": "takoradi_kwesimintsim_anaji",
+      "corridorName": "Takoradi Market Circle ⇄ Paa Grant ⇄ Kwesimintsim ⇄ Anaji ⇄ Kojokrom",
+      "stopsCount": 13,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:11:33.844Z"
+    },
+    {
+      "id": "takoradi-marketcircle-to-kojokrom-2",
+      "name": "Kojokrom ⇄ Takoradi Market Circle",
+      "corridorId": "takoradi_kwesimintsim_anaji",
+      "corridorName": "Takoradi Market Circle ⇄ Paa Grant ⇄ Kwesimintsim ⇄ Anaji ⇄ Kojokrom",
+      "stopsCount": 13,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:11:33.844Z"
+    },
+    {
+      "id": "capecoast-elmina-1",
+      "name": "Kotokuraba ⇄ Elmina Castle",
+      "corridorId": "capecoast_ucc_elmina",
+      "corridorName": "Cape Coast Kotokuraba ⇄ UCC Old Site ⇄ UCC Science ⇄ Elmina Junction ⇄ Elmina Castle",
+      "stopsCount": 10,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:12:09.463Z"
+    },
+    {
+      "id": "capecoast-elmina-2",
+      "name": "Elmina Castle ⇄ Kotokuraba",
+      "corridorId": "capecoast_ucc_elmina",
+      "corridorName": "Cape Coast Kotokuraba ⇄ UCC Old Site ⇄ UCC Science ⇄ Elmina Junction ⇄ Elmina Castle",
+      "stopsCount": 10,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:12:09.463Z"
+    },
+    {
+      "id": "cape-coast-elmina-1",
+      "name": "Cape Coast Kotokuraba ⇄ Elmina Castle",
+      "corridorId": "capecoast_ucc_elmina",
+      "corridorName": "Cape Coast Kotokuraba ⇄ UCC Old Site ⇄ UCC Science ⇄ Elmina Junction ⇄ Elmina Castle",
+      "stopsCount": 10,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:12:09.763Z"
+    },
+    {
+      "id": "cape-coast-elmina-2",
+      "name": "Elmina Castle ⇄ Cape Coast Kotokuraba",
+      "corridorId": "capecoast_ucc_elmina",
+      "corridorName": "Cape Coast Kotokuraba ⇄ UCC Old Site ⇄ UCC Science ⇄ Elmina Junction ⇄ Elmina Castle",
+      "stopsCount": 10,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:12:09.763Z"
+    },
+    {
+      "id": "circle-to-abelemkpe-1",
+      "name": "Circle ⇄ Abelemkpe",
+      "corridorId": "circle_pigfarm_dzorwulu",
+      "corridorName": "Circle ⇄ Kanda ⇄ Pig Farm ⇄ Roman Ridge ⇄ Dzorwulu ⇄ Abelemkpe",
+      "stopsCount": 11,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:27:58.219Z"
+    },
+    {
+      "id": "circle-to-abelemkpe-2",
+      "name": "Abelemkpe ⇄ Circle",
+      "corridorId": "circle_pigfarm_dzorwulu",
+      "corridorName": "Circle ⇄ Kanda ⇄ Pig Farm ⇄ Roman Ridge ⇄ Dzorwulu ⇄ Abelemkpe",
+      "stopsCount": 11,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:27:58.219Z"
+    },
+    {
+      "id": "kaneshie-abeka-1",
+      "name": "Kaneshie ⇄ Abeka Lapaz",
+      "corridorId": "kaneshie_darkuman_lapaz",
+      "corridorName": "Kaneshie ⇄ Bubuashie ⇄ Darkuman ⇄ Nyamekye ⇄ Fadama ⇄ Abeka Lapaz",
+      "stopsCount": 12,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:28:23.471Z"
+    },
+    {
+      "id": "kaneshie-abeka-2",
+      "name": "Abeka Lapaz ⇄ Kaneshie",
+      "corridorId": "kaneshie_darkuman_lapaz",
+      "corridorName": "Kaneshie ⇄ Bubuashie ⇄ Darkuman ⇄ Nyamekye ⇄ Fadama ⇄ Abeka Lapaz",
+      "stopsCount": 12,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:28:23.471Z"
+    },
+    {
+      "id": "dansoman-mamprobi-1",
+      "name": "Dansoman Last Stop ⇄ Mamprobi Banana Inn",
+      "corridorId": "dansoman_agege_mamprobi",
+      "corridorName": "Dansoman Last Stop ⇄ Shiabu ⇄ Gbegbeyise ⇄ Agege ⇄ Mamprobi Banana Inn",
+      "stopsCount": 10,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:29:01.632Z"
+    },
+    {
+      "id": "dansoman-mamprobi-2",
+      "name": "Mamprobi Banana Inn ⇄ Dansoman Last Stop",
+      "corridorId": "dansoman_agege_mamprobi",
+      "corridorName": "Dansoman Last Stop ⇄ Shiabu ⇄ Gbegbeyise ⇄ Agege ⇄ Mamprobi Banana Inn",
+      "stopsCount": 10,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:29:01.632Z"
+    },
+    {
+      "id": "circle-kanda-pigfarm",
+      "name": "Circle ⇄ Abelemkpe",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:39:03.261Z"
+    },
+    {
+      "id": "kaneshie-bubuashie-darkuman",
+      "name": "Kaneshie ⇄ Lapaz",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:39:03.261Z"
+    },
+    {
+      "id": "dansoman-shiabu-agege",
+      "name": "Dansoman ⇄ Banana Inn",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:39:03.261Z"
+    },
+    {
+      "id": "tema-community-1-12",
+      "name": "Community 1 ⇄ Community 12",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:39:03.261Z"
+    },
+    {
+      "id": "37-airport-dzorwulu",
+      "name": "37 ⇄ West Legon",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:39:03.261Z"
+    },
+    {
+      "id": "spintex-baatsona-texpo",
+      "name": "Spintex Road ⇄ Kasoa/Nungua Link",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:39:03.261Z"
+    },
+    {
+      "id": "kasoa-iron-millennium",
+      "name": "Kasoa Overhead ⇄ Kakraba",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:39:03.261Z"
+    },
+    {
+      "id": "circle-osu-labadi",
+      "name": "Circle ⇄ La Market",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T14:39:03.261Z"
+    },
+    {
+      "id": "kejetia-sofoline-abuakwa",
+      "name": "Kejetia Central ⇄ Sofoline & Abuakwa Main",
+      "corridorId": "mega_kumasi",
+      "corridorName": "Ashanti Region (Kumasi Metropolis)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:14:18.361Z"
+    },
+    {
+      "id": "kejetia-suame-oldtafo",
+      "name": "Kejetia Central ⇄ Suame Roundabout & Old Tafo",
+      "corridorId": "mega_kumasi",
+      "corridorName": "Ashanti Region (Kumasi Metropolis)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:14:18.361Z"
+    },
+    {
+      "id": "kejetia-bantama-abrepo",
+      "name": "Kejetia Central ⇄ Bantama & Abrepo Junction",
+      "corridorId": "mega_kumasi",
+      "corridorName": "Ashanti Region (Kumasi Metropolis)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:14:18.361Z"
+    },
+    {
+      "id": "kejetia-knust-ayeduase",
+      "name": "Kejetia Central ⇄ KNUST Campus & Ayeduase Gate",
+      "corridorId": "mega_kumasi",
+      "corridorName": "Ashanti Region (Kumasi Metropolis)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:14:18.361Z"
+    },
+    {
+      "id": "kejetia-asafo-atonsu-dompoase",
+      "name": "Kejetia Central ⇄ Asafo Interchange & Atonsu Dompoase",
+      "corridorId": "mega_kumasi",
+      "corridorName": "Ashanti Region (Kumasi Metropolis)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:14:18.361Z"
+    },
+    {
+      "id": "kejetia-santasi-kwadaso",
+      "name": "Kejetia Central ⇄ Santasi Roundabout & Kwadaso",
+      "corridorId": "mega_kumasi",
+      "corridorName": "Ashanti Region (Kumasi Metropolis)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:14:18.361Z"
+    },
+    {
+      "id": "kejetia-mamponteng-pankrono",
+      "name": "Kejetia Central ⇄ Mamponteng & Pankrono Estate",
+      "corridorId": "mega_kumasi",
+      "corridorName": "Ashanti Region (Kumasi Metropolis)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:14:18.361Z"
+    },
+    {
+      "id": "kejetia-tanoso-ktu",
+      "name": "Kejetia Central ⇄ Tanoso & Kumasi Technical University",
+      "corridorId": "mega_kumasi",
+      "corridorName": "Ashanti Region (Kumasi Metropolis)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:14:18.361Z"
+    },
+    {
+      "id": "market-circle-effia-nkwanta-hospital",
+      "name": "Takoradi Market Circle ⇄ Effia Nkwanta Hospital & Sekondi Station",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:18:30.439Z"
+    },
+    {
+      "id": "market-circle-sekondi-college-essikado",
+      "name": "Takoradi Market Circle ⇄ Sekondi College & Essikado",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:18:30.439Z"
+    },
+    {
+      "id": "paa-grant-kwesimintsim",
+      "name": "Paa Grant Roundabout ⇄ Kwesimintsim",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:18:30.439Z"
+    },
+    {
+      "id": "anaji-choice-kojokrom",
+      "name": "Anaji Choice ⇄ Kojokrom Railway",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:18:30.439Z"
+    },
+    {
+      "id": "airport-ridge-new-takoradi",
+      "name": "Takoradi Airport Ridge ⇄ New Takoradi",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:18:30.439Z"
+    },
+    {
+      "id": "beach-road-harbor-junction",
+      "name": "Beach Road ⇄ Harbor Junction",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 6,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:18:30.439Z"
+    },
+    {
+      "id": "kotokuraba-ucc-science",
+      "name": "Kotokuraba Station ⇄ UCC Science",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:19:53.284Z"
+    },
+    {
+      "id": "kotokuraba-elmina-castle",
+      "name": "Kotokuraba Station ⇄ Elmina Castle",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 6,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:19:53.284Z"
+    },
+    {
+      "id": "kotokuraba-biriwa",
+      "name": "Kotokuraba Station ⇄ Biriwa",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:19:53.284Z"
+    },
+    {
+      "id": "ucc-science-komenda-junction",
+      "name": "UCC Science ⇄ Komenda Junction",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:19:53.284Z"
+    },
+    {
+      "id": "cape-coast-kakum-park",
+      "name": "Cape Coast ⇄ Kakum National Park",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 4,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:19:53.284Z"
+    },
+    {
+      "id": "kotokuraba-mankessim",
+      "name": "Kotokuraba Station ⇄ Mankessim",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:19:53.284Z"
+    },
+    {
+      "id": "ucc-oldsite-elmina-castle",
+      "name": "UCC Old Site ⇄ Elmina Castle",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:19:53.284Z"
+    },
+    {
+      "id": "koforidua-effiduase-asokore-oyoko",
+      "name": "Koforidua Central ⇄ Oyoko",
+      "corridorId": "mega_eastern",
+      "corridorName": "Eastern Region (Highland & Radial Corridors)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:21:57.940Z"
+    },
+    {
+      "id": "koforidua-suhum-nsawam",
+      "name": "Koforidua ⇄ Nsawam",
+      "corridorId": "mega_eastern",
+      "corridorName": "Eastern Region (Highland & Radial Corridors)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:21:57.940Z"
+    },
+    {
+      "id": "koforidua-tinkong-mamfe-adukrom",
+      "name": "Koforidua ⇄ Adukrom",
+      "corridorId": "mega_eastern",
+      "corridorName": "Eastern Region (Highland & Radial Corridors)",
+      "stopsCount": 6,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:21:57.940Z"
+    },
+    {
+      "id": "nsawam-coaltar-asamankese",
+      "name": "Nsawam ⇄ Asamankese",
+      "corridorId": "mega_eastern",
+      "corridorName": "Eastern Region (Highland & Radial Corridors)",
+      "stopsCount": 5,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:21:57.940Z"
+    },
+    {
+      "id": "koforidua-aburi-peduase-suhum",
+      "name": "Koforidua ⇄ Suhum",
+      "corridorId": "mega_eastern",
+      "corridorName": "Eastern Region (Highland & Radial Corridors)",
+      "stopsCount": 10,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:21:57.940Z"
+    },
+    {
+      "id": "tamale-route-1",
+      "name": "Tamale Central ⇄ Aboabo Market ⇄ Sakasaka ⇄ Kalpohin",
+      "corridorId": "mega_tamale",
+      "corridorName": "Northern Region (Tamale Metropolis)",
+      "stopsCount": 10,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:24:27.581Z"
+    },
+    {
+      "id": "tamale-route-2",
+      "name": "Tamale Central ⇄ Lamashegu ⇄ Vittin ⇄ Bilpeila",
+      "corridorId": "mega_tamale",
+      "corridorName": "Northern Region (Tamale Metropolis)",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:24:27.581Z"
+    },
+    {
+      "id": "tamale-route-3",
+      "name": "Tamale Central ⇄ UDS Nyankpala Road ⇄ Nyankpala Campus",
+      "corridorId": "mega_tamale",
+      "corridorName": "Northern Region (Tamale Metropolis)",
+      "stopsCount": 5,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:24:27.581Z"
+    },
+    {
+      "id": "tamale-route-4",
+      "name": "Tamale Central ⇄ Choggu ⇄ Gurugu ⇄ Savelugu Station",
+      "corridorId": "mega_tamale",
+      "corridorName": "Northern Region (Tamale Metropolis)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:24:27.581Z"
+    },
+    {
+      "id": "tamale-route-5",
+      "name": "Tamale Central ⇄ Tamale Teaching Hospital (TTH) ⇄ Banvim",
+      "corridorId": "mega_tamale",
+      "corridorName": "Northern Region (Tamale Metropolis)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:24:27.581Z"
+    },
+    {
+      "id": "tamale-route-6",
+      "name": "Tamale Central ⇄ Kanvili ⇄ Kamina Barracks",
+      "corridorId": "mega_tamale",
+      "corridorName": "Northern Region (Tamale Metropolis)",
+      "stopsCount": 3,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:24:27.581Z"
+    },
+    {
+      "id": "sunyani-techiman-1",
+      "name": "Sunyani ⇄ Techiman (Route 1)",
+      "corridorId": "mega_custom_sunyani_to_techiman",
+      "corridorName": "Custom Corridor: Sunyani to Techiman",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:38:40.756Z"
+    },
+    {
+      "id": "sunyani-techiman-2",
+      "name": "Sunyani ⇄ Techiman (Route 2)",
+      "corridorId": "mega_custom_sunyani_to_techiman",
+      "corridorName": "Custom Corridor: Sunyani to Techiman",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:38:40.756Z"
+    },
+    {
+      "id": "sunyani-techiman-3",
+      "name": "Sunyani ⇄ Techiman (Route 3)",
+      "corridorId": "mega_custom_sunyani_to_techiman",
+      "corridorName": "Custom Corridor: Sunyani to Techiman",
+      "stopsCount": 6,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:38:40.756Z"
+    },
+    {
+      "id": "sunyani-techiman-4",
+      "name": "Sunyani ⇄ Techiman (Route 4)",
+      "corridorId": "mega_custom_sunyani_to_techiman",
+      "corridorName": "Custom Corridor: Sunyani to Techiman",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:38:40.756Z"
+    },
+    {
+      "id": "sunyani-techiman-5",
+      "name": "Sunyani ⇄ Techiman (Route 5)",
+      "corridorId": "mega_custom_sunyani_to_techiman",
+      "corridorName": "Custom Corridor: Sunyani to Techiman",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:38:40.756Z"
+    },
+    {
+      "id": "takoradi-market-circle-effia-nkwanta-hospital",
+      "name": "Takoradi Market Circle ⇄ Effia Nkwanta Hospital",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:51:19.411Z"
+    },
+    {
+      "id": "takoradi-market-circle-sekondi-college-essikado",
+      "name": "Takoradi Market Circle ⇄ Sekondi College",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:51:19.411Z"
+    },
+    {
+      "id": "cape-coast-biriwa",
+      "name": "Cape Coast ⇄ Biriwa",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:52:26.764Z"
+    },
+    {
+      "id": "elmina-komenda",
+      "name": "Elmina Junction ⇄ Komenda Junction",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:52:26.764Z"
+    },
+    {
+      "id": "dansoman-mamprobi",
+      "name": "Dansoman ⇄ Mamprobi Banana Inn",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:53:13.883Z"
+    },
+    {
+      "id": "tema-comm-1",
+      "name": "Tema Comm 1 ⇄ Comm 12",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:53:13.883Z"
+    },
+    {
+      "id": "circle-lapaz",
+      "name": "Circle ⇄ Lapaz",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:53:13.883Z"
+    },
+    {
+      "id": "koforidua-aburi-peduase-ayiensu",
+      "name": "Koforidua ⇄ Ayiensu",
+      "corridorId": "mega_eastern",
+      "corridorName": "Eastern Region (Highland & Radial Corridors)",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T15:54:17.371Z"
+    },
+    {
+      "id": "route-6",
+      "name": "Kotokuraba Station ⇄ Saltpond",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T16:58:47.188Z"
+    },
+    {
+      "id": "route-7",
+      "name": "UCC Old Site ⇄ Mankessim",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T16:58:47.188Z"
+    },
+    {
+      "id": "kasoa-nyanyano-kakraba",
+      "name": "Kasoa Overhead ⇄ Nyanyano Kakraba",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 5,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:00:43.016Z"
+    },
+    {
+      "id": "accra-central-tema-station",
+      "name": "Accra Central ⇄ Tema Station",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:00:43.016Z"
+    },
+    {
+      "id": "east-legon-kotoka-airport",
+      "name": "East Legon ⇄ Kotoka International Airport",
+      "corridorId": "mega_accra_infill",
+      "corridorName": "Greater Accra (High-Density Inner City Infill)",
+      "stopsCount": 4,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:00:43.016Z"
+    },
+    {
+      "id": "takoradi-market-circle-paa-grant-kwesimintsim",
+      "name": "Takoradi Market Circle ⇄ Paa Grant Roundabout & Kwesimintsim",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 6,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:17:22.147Z"
+    },
+    {
+      "id": "takoradi-market-circle-anaji-choice-kojokrom",
+      "name": "Takoradi Market Circle ⇄ Anaji Choice & Kojokrom",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:17:22.147Z"
+    },
+    {
+      "id": "takoradi-market-circle-airport-ridge-new-takoradi",
+      "name": "Takoradi Market Circle ⇄ Takoradi Airport Ridge & New Takoradi",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:17:22.147Z"
+    },
+    {
+      "id": "takoradi-market-circle-beach-road-harbor-junction",
+      "name": "Takoradi Market Circle ⇄ Beach Road & Harbor Junction",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 6,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:17:22.147Z"
+    },
+    {
+      "id": "cape-coast-kotokuraba-pedu-ucc-science",
+      "name": "Kotokuraba ⇄ UCC Science",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 6,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:18:55.961Z"
+    },
+    {
+      "id": "cape-coast-kotokuraba-biriwa",
+      "name": "Kotokuraba ⇄ Biriwa",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 9,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:18:55.961Z"
+    },
+    {
+      "id": "cape-coast-mankessim-bus-terminal",
+      "name": "Kotokuraba ⇄ Mankessim Bus Terminal",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:18:55.961Z"
+    },
+    {
+      "id": "suhum-tinkong-adukrom",
+      "name": "Suhum ⇄ Adukrom",
+      "corridorId": "mega_eastern",
+      "corridorName": "Eastern Region (Highland & Radial Corridors)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:22:29.294Z"
+    },
+    {
+      "id": "takoradi-market-circle-kwesimintsim",
+      "name": "Takoradi Market Circle ⇄ Kwesimintsim",
+      "corridorId": "mega_takoradi",
+      "corridorName": "Western Region (Sekondi-Takoradi Twin City)",
+      "stopsCount": 5,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:38:14.534Z"
+    },
+    {
+      "id": "cape-coast-7",
+      "name": "Elmina ⇄ Mankessim",
+      "corridorId": "mega_cape_coast",
+      "corridorName": "Central Region (Cape Coast & Elmina Coastal Strip)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:40:51.005Z"
+    },
+    {
+      "id": "koforidua-aburi-peduase",
+      "name": "Koforidua ⇄ Peduase",
+      "corridorId": "mega_eastern",
+      "corridorName": "Eastern Region (Highland & Radial Corridors)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:42:44.560Z"
+    },
+    {
+      "id": "suhum-akyem-oda-asamankese",
+      "name": "Suhum ⇄ Asamankese",
+      "corridorId": "mega_eastern",
+      "corridorName": "Eastern Region (Highland & Radial Corridors)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:42:44.560Z"
+    },
+    {
+      "id": "tamale-central-aboabo-sakasaka-kalpohin",
+      "name": "Tamale Central ⇄ Kalpohin",
+      "corridorId": "mega_tamale",
+      "corridorName": "Northern Region (Tamale Metropolis)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:44:05.374Z"
+    },
+    {
+      "id": "tamale-central-lamashegu-vittin-bilpeila",
+      "name": "Tamale Central ⇄ Bilpeila",
+      "corridorId": "mega_tamale",
+      "corridorName": "Northern Region (Tamale Metropolis)",
+      "stopsCount": 6,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:44:05.374Z"
+    },
+    {
+      "id": "tamale-central-uds-nyankpala-campus",
+      "name": "Tamale Central ⇄ Nyankpala Campus",
+      "corridorId": "mega_tamale",
+      "corridorName": "Northern Region (Tamale Metropolis)",
+      "stopsCount": 6,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:44:05.374Z"
+    },
+    {
+      "id": "tamale-central-choggu-gurugu-savelugu",
+      "name": "Tamale Central ⇄ Savelugu Station",
+      "corridorId": "mega_tamale",
+      "corridorName": "Northern Region (Tamale Metropolis)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:44:05.374Z"
+    },
+    {
+      "id": "tamale-central-tth-banvim",
+      "name": "Tamale Central ⇄ Banvim",
+      "corridorId": "mega_tamale",
+      "corridorName": "Northern Region (Tamale Metropolis)",
+      "stopsCount": 8,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:44:05.374Z"
+    },
+    {
+      "id": "tamale-central-kanvili-kamina-barracks",
+      "name": "Tamale Central ⇄ Kamina Barracks",
+      "corridorId": "mega_tamale",
+      "corridorName": "Northern Region (Tamale Metropolis)",
+      "stopsCount": 7,
+      "generationMethod": "ai_verified",
+      "addedAt": "2026-10-12T17:44:05.374Z"
+    }
+  ],
+  "stats": {
+    "totalCorridorsMapped": 38,
+    "totalRoutesGenerated": 140,
+    "totalStopsAdded": 1098
+  }
+}

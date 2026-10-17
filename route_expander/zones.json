@@ -1,0 +1,352 @@
+{
+  "systematicPlan": {
+    "title": "Ghana National Systematic Trotro Expansion Roadmap",
+    "description": "Step-by-step territorial expansion that routes corridor-by-corridor without skipping any neighborhood or junction.",
+    "currentPhase": "Phase 1: Greater Accra Comprehensive Coverage"
+  },
+  "phases": [
+    {
+      "phaseId": "phase_1_greater_accra",
+      "name": "Phase 1: Greater Accra Metropolitan Area",
+      "status": "in_progress",
+      "zones": [
+        {
+          "zoneId": "zone_1_central_coastal",
+          "name": "Zone 1: Central & Coastal Accra",
+          "hubs": ["Circle", "Kaneshie", "Tema Station", "Ridge", "Osu", "Labadi"],
+          "corridors": [
+            {
+              "id": "circle_kaneshie_dansoman",
+              "name": "Circle ⇄ Kaneshie ⇄ Dansoman / Exhibition Corridor",
+              "fromHub": "Circle",
+              "toNeighborhood": "Dansoman",
+              "keyLandmarks": ["Kaneshie First Light", "Mataheko", "Zongo Junction", "Dansoman Roundabout", "Exhibition", "Last Stop"]
+            },
+            {
+              "id": "kaneshie_chorkor_mamprobi",
+              "name": "Kaneshie ⇄ Mamprobi ⇄ Chorkor / Korle Bu Corridor",
+              "fromHub": "Kaneshie",
+              "toNeighborhood": "Chorkor",
+              "keyLandmarks": ["Korle Bu Mortuary Road", "Mamprobi Post Office", "Plaza", "Chorkor Chemunaa"]
+            },
+            {
+              "id": "tema_station_osu_labadi",
+              "name": "Tema Station ⇄ Osu RE ⇄ Labadi Beach Corridor",
+              "fromHub": "Tema Station",
+              "toNeighborhood": "Labadi",
+              "keyLandmarks": ["Ministries", "Osu Danquah Circle", "Oxford Street", "Labone", "Trade Fair", "Labadi Bush Canteen"]
+            }
+          ]
+        },
+        {
+          "zoneId": "zone_2_eastern_spintex",
+          "name": "Zone 2: Eastern Corridors, Spintex & Ledzokuku",
+          "hubs": ["37", "Tetteh Quarshie", "Nungua Barrier", "Sakumono"],
+          "corridors": [
+            {
+              "id": "tetteh_quarshie_spintex_coastal",
+              "name": "Tetteh Quarshie ⇄ Spintex Road ⇄ Sakumono Estate Corridor",
+              "fromHub": "Tetteh Quarshie",
+              "toNeighborhood": "Sakumono",
+              "keyLandmarks": ["Spanner", "Action Chapel", "Papaye Spintex", "Baatsona Total", "Shell Signboard", "Coastal", "Sakumono Estate"]
+            },
+            {
+              "id": "37_tradefair_teshie_nungua",
+              "name": "37 ⇄ Burma Camp ⇄ Teshie ⇄ Nungua Barrier Corridor",
+              "fromHub": "37",
+              "toNeighborhood": "Nungua",
+              "keyLandmarks": ["El-Wak", "Burma Camp", "Trade Fair", "Teshie First Junction", "Teshie Lascala", "Nungua Barrier"]
+            },
+            {
+              "id": "circle_airport_cantonments",
+              "name": "Circle ⇄ 37 ⇄ Airport Residential ⇄ Cantonments",
+              "fromHub": "Circle",
+              "toNeighborhood": "Cantonments",
+              "keyLandmarks": ["Caprice", "37 Military Hospital", "Airport Junction", "Marina Mall", "Airport City", "Cantonments Post Office"]
+            }
+          ]
+        },
+        {
+          "zoneId": "zone_3_northeastern_adenta",
+          "name": "Zone 3: North-Eastern Corridors, Madina & Adenta",
+          "hubs": ["Madina", "Adenta Barrier", "Atomic Junction", "Legon"],
+          "corridors": [
+            {
+              "id": "madina_ashaley_botwe",
+              "name": "Madina Zongo Junction ⇄ Ashaley Botwe ⇄ School Junction Corridor",
+              "fromHub": "Madina",
+              "toNeighborhood": "Ashaley Botwe",
+              "keyLandmarks": ["Madina Redco", "Nmai Dzorn", "Ashaley Botwe Third Gate", "Old Barrier", "School Junction", "Maijami"]
+            },
+            {
+              "id": "adenta_frafraha_dodowa",
+              "name": "Adenta Barrier ⇄ Frafraha ⇄ Amrahia ⇄ Dodowa Corridor",
+              "fromHub": "Adenta Barrier",
+              "toNeighborhood": "Dodowa",
+              "keyLandmarks": ["Adenta Housing Down", "Frafraha Junction", "Amrahia Dairy Farm", "Danfa", "Valley View University", "Dodowa Forest"]
+            },
+            {
+              "id": "atomic_haatso_agbogba",
+              "name": "Atomic Junction ⇄ Haatso Supermarket ⇄ Agbogba Junction",
+              "fromHub": "Atomic Junction",
+              "toNeighborhood": "Agbogba",
+              "keyLandmarks": ["Atomic Roundabout", "Haatso Yam Market", "Ecomog", "Wisconsin University", "Agbogba First Gate"]
+            }
+          ]
+        },
+        {
+          "zoneId": "zone_4_northern_kwabenya",
+          "name": "Zone 4: Northern Corridors, Achimota & Kwabenya",
+          "hubs": ["Achimota Old Station", "Achimota New Terminal", "Dome Crossing", "Kwabenya Roundabout"],
+          "corridors": [
+            {
+              "id": "achimota_dome_kwabenya_ashongman",
+              "name": "Achimota Terminal ⇄ Dome ⇄ Kwabenya ⇄ Ashongman Estate Corridor",
+              "fromHub": "Achimota",
+              "toNeighborhood": "Ashongman",
+              "keyLandmarks": ["Dome Crossing", "Dome Pillar 2", "Taifa Junction", "Kwabenya Roundabout", "Musuku", "Ashongman Pure Water", "Ashongman Estate"]
+            },
+            {
+              "id": "kwabenya_pokrom_abokobi",
+              "name": "Kwabenya ⇄ Berekuso ⇄ Abokobi Corridor",
+              "fromHub": "Kwabenya",
+              "toNeighborhood": "Abokobi",
+              "keyLandmarks": ["Kwabenya Atomic Stone", "Comet Estate", "Berekuso Ashesi Road", "Abokobi Rural Bank"]
+            }
+          ]
+        },
+        {
+          "zoneId": "zone_5_northwestern_pokuase",
+          "name": "Zone 5: North-Western Corridors & Nsawam Road",
+          "hubs": ["Lapaz", "Anyaa Market", "Pokuase Interchange", "Amasaman"],
+          "corridors": [
+            {
+              "id": "lapaz_sowutuom_anyaa_ablekuma",
+              "name": "Lapaz ⇄ Chantan ⇄ Sowutuom ⇄ Anyaa ⇄ Ablekuma Corridor",
+              "fromHub": "Lapaz",
+              "toNeighborhood": "Ablekuma",
+              "keyLandmarks": ["Tabora Alhaji", "Chantan Market", "Sowutuom Last Stop", "Pentecost University", "Anyaa Market", "Fan Milk", "Ablekuma Curve"]
+            },
+            {
+              "id": "lapaz_pokuase_amasaman",
+              "name": "Lapaz ⇄ Achimota ⇄ Pokuase Interchange ⇄ Amasaman Corridor",
+              "fromHub": "Lapaz",
+              "toNeighborhood": "Amasaman",
+              "keyLandmarks": ["St. John's", "Mile 7", "Ofankor Barrier", "Asofan", "Pokuase Interchange", "Fise Junction", "Amasaman Hospital"]
+            }
+          ]
+        },
+        {
+          "zoneId": "zone_6_western_kasoa",
+          "name": "Zone 6: Western Corridors & Kasoa Road",
+          "hubs": ["Kaneshie", "Mallam Junction", "Weija Barrier", "Kasoa Overhead"],
+          "corridors": [
+            {
+              "id": "kaneshie_odorkor_mallam_gbawe",
+              "name": "Kaneshie ⇄ Odorkor Official Town ⇄ Mallam ⇄ Gbawe Zero Corridor",
+              "fromHub": "Kaneshie",
+              "toNeighborhood": "Gbawe",
+              "keyLandmarks": ["Odorkor Tipper", "Mallam Junction", "Gbawe CP", "Gbawe Top Base", "Gbawe Zero"]
+            },
+            {
+              "id": "mallam_weija_bortianor_kasoa",
+              "name": "Mallam Junction ⇄ Weija ⇄ Tetegu ⇄ Kasoa Old Barrier ⇄ Kasoa New Market",
+              "fromHub": "Mallam Junction",
+              "toNeighborhood": "Kasoa",
+              "keyLandmarks": ["McCarthy Hill", "Tetegu Junction", "Weija SCC", "Bortianor Red Top", "Kasoa Toll Booth", "Kasoa Old Barrier", "Kasoa Overhead", "Kasoa New Market"]
+            }
+          ]
+        },
+        {
+          "zoneId": "zone_7_tema_kpone",
+          "name": "Zone 7: Tema Metropolis, Ashaiman & Kpone",
+          "hubs": ["Tema Community 1", "Ashaiman Main Lorry Park", "Afienya", "Kpone Barrier"],
+          "corridors": [
+            {
+              "id": "circle_motorway_tema_com1",
+              "name": "Circle ⇄ Accra-Tema Motorway ⇄ Tema Community 1 Hub",
+              "fromHub": "Circle",
+              "toNeighborhood": "Tema Community 1",
+              "keyLandmarks": ["Avenor", "Tetteh Quarshie", "Motorway Toll", "Ashaiman Overhead", "Tema Roundabout", "Community 1 Market"]
+            },
+            {
+              "id": "ashaiman_afienya_dawhenya",
+              "name": "Ashaiman Timber Market ⇄ Michel Camp ⇄ Afienya ⇄ Dawhenya",
+              "fromHub": "Ashaiman",
+              "toNeighborhood": "Dawhenya",
+              "keyLandmarks": ["Ashaiman Underbridge", "Tulaku", "Michel Camp Gate", "Afienya Toll", "Dawhenya Central University"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phaseId": "phase_2_regional_connectors",
+      "name": "Phase 2: Eastern & Central Regional Connectors",
+      "status": "queued",
+      "zones": [
+        {
+          "zoneId": "zone_eastern_highways",
+          "name": "Eastern Region Connectors (Nsawam ⇄ Koforidua / Aburi)",
+          "hubs": ["Circle VIP", "Madina", "Nsawam Main", "Koforidua Central Station"],
+          "corridors": [
+            {
+              "id": "accra_nsawam_suhum_koforidua",
+              "name": "Circle ⇄ Nsawam ⇄ Suhum ⇄ Koforidua Main Station",
+              "fromHub": "Circle",
+              "toNeighborhood": "Koforidua",
+              "keyLandmarks": ["Pokuase", "Nsawam Cannery", "Teacher Mante", "Suhum Roundabout", "Koforidua Jackson Park"]
+            },
+            {
+              "id": "madina_aburi_mamfe_akropong",
+              "name": "Madina ⇄ Peduase ⇄ Aburi ⇄ Mamfe ⇄ Akropong",
+              "fromHub": "Madina",
+              "toNeighborhood": "Akropong",
+              "keyLandmarks": ["Adenta", "Peduase Lodge", "Aburi Botanical Gardens", "Amanokrom", "Mamfe Roundabout", "Akropong Market"]
+            }
+          ]
+        },
+        {
+          "zoneId": "zone_central_highways",
+          "name": "Central Region Coastal Connectors (Kasoa ⇄ Winneba ⇄ Cape Coast)",
+          "hubs": ["Kasoa", "Winneba Junction", "Mankessim Roundabout", "Cape Coast Kotokuraba"],
+          "corridors": [
+            {
+              "id": "kasoa_winneba_mankessim_capecoast",
+              "name": "Kasoa Overhead ⇄ Winneba Junction ⇄ Mankessim ⇄ Cape Coast Kotokuraba",
+              "fromHub": "Kasoa",
+              "toNeighborhood": "Cape Coast",
+              "keyLandmarks": ["Budumburam Camp", "Awutu Breku", "Winneba Junction", "Apam Junction", "Mankessim Market", "Cape Coast University", "Kotokuraba Station"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phaseId": "phase_3_ashanti_transits",
+      "name": "Phase 3: Ashanti Region & Kumasi Metropolitan Hub",
+      "status": "queued",
+      "zones": [
+        {
+          "zoneId": "zone_kumasi_metropolis",
+          "name": "Kumasi Metropolis (Kejetia Terminal & Radial Arterials)",
+          "hubs": ["Kejetia Central Market", "KNUST Junction", "Sofoline Interchange", "Asafo VIP", "Suame Roundabout"],
+          "corridors": [
+            {
+              "id": "kejetia_knust_ayeduase",
+              "name": "Kejetia ⇄ Anloga Junction ⇄ KNUST Commercial ⇄ Ayeduase",
+              "fromHub": "Kejetia",
+              "toNeighborhood": "Ayeduase",
+              "keyLandmarks": ["Asafo", "Amakom Roundabout", "Anloga Junction", "KNUST Police Station", "Tech Junction", "Ayeduase Gate"]
+            },
+            {
+              "id": "kejetia_suame_tafo_mamponteng",
+              "name": "Kejetia ⇄ Suame Roundabout ⇄ Old Tafo ⇄ Pankrono ⇄ Mamponteng",
+              "fromHub": "Kejetia",
+              "toNeighborhood": "Mamponteng",
+              "keyLandmarks": ["Komfo Anokye Hospital", "Suame Magazine", "Tafo Market", "Pankrono Estate", "Mamponteng Station"]
+            },
+            {
+              "id": "kejetia_sofoline_abuakwa",
+              "name": "Kejetia ⇄ Santasi ⇄ Sofoline Interchange ⇄ Tanoso ⇄ Abuakwa",
+              "fromHub": "Kejetia",
+              "toNeighborhood": "Abuakwa",
+              "keyLandmarks": ["Santasi Roundabout", "Sofoline Interchange", "Tanoso", "Kumasi Technical University", "Abuakwa Main Station"]
+            },
+            {
+              "id": "asafo_atonsu_dompoase",
+              "name": "Asafo Interchange ⇄ Ahensan ⇄ Atonsu ⇄ Kumasi High School ⇄ Dompoase",
+              "fromHub": "Asafo",
+              "toNeighborhood": "Dompoase",
+              "keyLandmarks": ["Asafo Market", "Ahensan Junction", "Atonsu Agogo", "Kumasi High School", "Dompoase Aprabon"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phaseId": "phase_4_coastal_metros",
+      "name": "Phase 4: Western & Central Coastal Metropolises",
+      "status": "queued",
+      "zones": [
+        {
+          "zoneId": "zone_western_takoradi",
+          "name": "Western Region (Sekondi-Takoradi Twin City)",
+          "hubs": ["Takoradi Market Circle", "Paa Grant Roundabout", "Sekondi Station"],
+          "corridors": [
+            {
+              "id": "takoradi_sekondi_essikado",
+              "name": "Takoradi Market Circle ⇄ Effia Nkwanta ⇄ Sekondi Station ⇄ Essikado",
+              "fromHub": "Takoradi Market Circle",
+              "toNeighborhood": "Essikado",
+              "keyLandmarks": ["Effia Nkwanta Hospital", "Sekondi College", "Sekondi Police Station", "Essikado Hospital"]
+            },
+            {
+              "id": "takoradi_kwesimintsim_anaji",
+              "name": "Takoradi Market Circle ⇄ Paa Grant ⇄ Kwesimintsim ⇄ Anaji ⇄ Kojokrom",
+              "fromHub": "Takoradi Market Circle",
+              "toNeighborhood": "Kojokrom",
+              "keyLandmarks": ["Paa Grant Roundabout", "Kwesimintsim Hospital", "Anaji Choice", "Kojokrom Railway Station"]
+            }
+          ]
+        },
+        {
+          "zoneId": "zone_central_elmina",
+          "name": "Central Region (Cape Coast & Elmina Coastal Strip)",
+          "hubs": ["Cape Coast Kotokuraba", "UCC Science"],
+          "corridors": [
+            {
+              "id": "capecoast_ucc_elmina",
+              "name": "Cape Coast Kotokuraba ⇄ UCC Old Site ⇄ UCC Science ⇄ Elmina Junction ⇄ Elmina Castle",
+              "fromHub": "Cape Coast Kotokuraba",
+              "toNeighborhood": "Elmina",
+              "keyLandmarks": ["Pedu Junction", "UCC Old Site", "UCC Science Board", "Elmina Junction", "Elmina Castle"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "phaseId": "phase_5_accra_infill",
+      "name": "Phase 5: Greater Accra High-Density Urban Infill",
+      "status": "queued",
+      "zones": [
+        {
+          "zoneId": "zone_accra_inner_arterials",
+          "name": "Inner Accra Radial Connectors",
+          "hubs": ["Circle", "Kaneshie", "Dansoman", "Tema Comm 1"],
+          "corridors": [
+            {
+              "id": "circle_pigfarm_dzorwulu",
+              "name": "Circle ⇄ Kanda ⇄ Pig Farm ⇄ Roman Ridge ⇄ Dzorwulu ⇄ Abelemkpe",
+              "fromHub": "Circle",
+              "toNeighborhood": "Abelemkpe",
+              "keyLandmarks": ["Kanda Highway", "Pig Farm Junction", "Roman Ridge", "Dzorwulu Junction", "Abelemkpe Traffic Light"]
+            },
+            {
+              "id": "kaneshie_darkuman_lapaz",
+              "name": "Kaneshie ⇄ Bubuashie ⇄ Darkuman ⇄ Nyamekye ⇄ Fadama ⇄ Abeka Lapaz",
+              "fromHub": "Kaneshie",
+              "toNeighborhood": "Abeka Lapaz",
+              "keyLandmarks": ["Bubuashie Post Office", "Darkuman Junction", "Nyamekye Junction", "Fadama", "Abeka Lapaz"]
+            },
+            {
+              "id": "dansoman_agege_mamprobi",
+              "name": "Dansoman Last Stop ⇄ Shiabu ⇄ Gbegbeyise ⇄ Agege ⇄ Mamprobi Banana Inn",
+              "fromHub": "Dansoman Last Stop",
+              "toNeighborhood": "Mamprobi Banana Inn",
+              "keyLandmarks": ["Shiabu", "Gbegbeyise", "Agege Last Stop", "Mamprobi Banana Inn"]
+            },
+            {
+              "id": "tema_comm4_comm9_general_hospital",
+              "name": "Tema Comm 1 ⇄ Comm 2 ⇄ Comm 4 ⇄ Comm 7 ⇄ Comm 9 General Hospital ⇄ Comm 12",
+              "fromHub": "Tema Comm 1",
+              "toNeighborhood": "Tema Comm 12",
+              "keyLandmarks": ["Tema Comm 2", "Comm 4 Market", "Comm 7 Total", "Comm 9 General Hospital", "Comm 12 Roundabout"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
