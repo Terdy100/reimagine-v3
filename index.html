@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spark Motion — Ghana's Real-Time TroTro Transit on Map</title>
+    <meta name="description" content="Spark Motion brings real-time trotro mapping, living vehicle telemetry, verified GPRTU fares, landmark cues, sleep alarms, and package dispatch to Greater Accra." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" />
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="/ghana_all_stops.js"></script>
+    <script src="/pipeline/generated_routes.js"></script>
+    <script src="/trotro-pricing.js"></script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

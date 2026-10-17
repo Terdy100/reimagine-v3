@@ -1,0 +1,385 @@
+/* =========================================================
+   SearchCard Component Styles
+   Precision Floating Search Hub • Frosted Glass • Reverse Swap
+========================================================= */
+
+.search-card-wrapper {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  position: relative;
+  z-index: 20;
+}
+
+.search-card { 
+  background: #f8fafc;
+  border-radius: 16px; 
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04); 
+  display: flex; 
+  flex-direction: column; 
+  padding: 4px 0; 
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal), background var(--transition-normal);
+}
+
+.search-card:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-tint), 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: #ffffff;
+}
+
+.search-row {
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
+  position: relative;
+  gap: 12px;
+}
+
+.search-row.border-bottom {
+  position: relative;
+}
+
+.search-row.border-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 44px;
+  right: 14px;
+  height: 1px;
+  background: var(--border-subtle);
+}
+
+/* Route Node Column */
+.search-node-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20px;
+  flex: none;
+  position: relative;
+}
+
+.route-node {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+
+.origin-node {
+  background: var(--green-tint);
+}
+
+.node-dot-green {
+  width: 8px;
+  height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--surface), 0 0 8px var(--green-glow);
+}
+
+.dest-node {
+  background: var(--red-tint);
+}
+
+.node-square-red {
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px var(--surface);
+}
+
+.route-connector-line {
+  position: absolute;
+  top: 16px;
+  width: 2px;
+  height: 28px;
+  background-image: linear-gradient(to bottom, var(--border-medium) 50%, transparent 50%);
+  background-size: 2px 6px;
+  z-index: 1;
+}
+
+/* Input Column */
+.search-input-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.search-label {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.search-input {
+  border: 0;
+  outline: 0;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  background: transparent;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  padding: 0;
+  letter-spacing: -0.01em;
+}
+
+.search-input::placeholder {
+  color: var(--text-dim);
+  font-weight: 500;
+  font-size: 13px;
+}
+
+/* Actions Column */
+.search-actions-col {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: none;
+}
+
+.search-action-btn { 
+  border: 0; 
+  background: var(--surface); 
+  color: var(--text-muted); 
+  width: 32px; 
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--border-light);
+  flex: none;
+}
+
+.search-action-btn:hover {
+  background: var(--bg-creamy);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.search-action-btn:active {
+  transform: scale(0.94);
+}
+
+.swap-btn {
+  color: var(--spark-blue);
+  background: var(--spark-blue-tint);
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+.swap-btn:hover {
+  background: var(--spark-blue);
+  color: #ffffff;
+  transform: rotate(180deg);
+}
+
+.gps-btn {
+  color: var(--green-dark);
+  background: var(--green-tint);
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+.gps-btn.locating {
+  animation: pulseGps 0.6s infinite ease-in-out;
+}
+
+.primary-search-btn {
+  background: linear-gradient(135deg, var(--green-dark), #0f5132);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 4px 12px var(--green-glow);
+}
+
+.primary-search-btn:hover {
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  color: #ffffff;
+  transform: translateY(-1px) scale(1.04);
+}
+
+@keyframes pulseGps {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12) rotate(15deg); }
+  100% { transform: scale(1); }
+}
+
+/* ==========================================================================
+   Suggestions & Autocomplete Dropdown
+   ========================================================================== */
+.search-suggestions-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
+  z-index: 1000;
+  overflow: hidden;
+  max-height: 310px;
+  overflow-y: auto;
+  animation: dropdownFade 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes dropdownFade {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.suggestions-header {
+  padding: 10px 14px 6px;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-dim);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.custom-header {
+  color: var(--green-dark);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background var(--transition-fast);
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background: var(--bg-creamy);
+}
+
+.suggestion-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-creamy);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.station-icon {
+  color: var(--spark-blue);
+}
+
+.stop-icon {
+  color: var(--green-dark);
+}
+
+.place-icon {
+  color: var(--gold-dark);
+}
+
+.suggestion-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.suggestion-name-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.suggestion-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.suggestion-type-badge {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.suggestion-type-badge.trotro {
+  background: var(--green-tint);
+  color: var(--green-dark);
+}
+
+.suggestion-type-badge.station {
+  background: var(--spark-blue-tint);
+  color: var(--spark-blue-dark);
+}
+
+.suggestion-type-badge.place {
+  background: var(--gold-tint);
+  color: var(--gold-dark);
+}
+
+.suggestion-meta {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* Quick Destination Chips */
+.quick-chips-wrapper {
+  padding: 4px 0 10px;
+}
+
+.quick-chips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 4px 14px 6px;
+}
+
+.quick-dest-chip {
+  border: 1px solid var(--border-light);
+  background: var(--surface-subtle);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.quick-dest-chip:hover {
+  background: var(--green-dark);
+  color: #ffffff;
+  border-color: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+.custom-chip {
+  border-color: var(--green-light);
+  background: var(--green-tint);
+  color: var(--green-dark);
+  font-weight: 700;
+}

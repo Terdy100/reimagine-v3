@@ -1,0 +1,389 @@
+/* =========================================================
+   TrotroSleepAlarm Component Styles
+   800m Geofence Wake-Up Engine • High-Contrast Alert Card
+========================================================= */
+
+.trotro-sleep-alarm-card {
+  margin: 12px 0 14px 0;
+  padding: 14px 16px;
+  background: var(--surface-subtle);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+@media (max-width: 500px) {
+  .alarm-header-row {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .alarm-controls {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.trotro-sleep-alarm-card.armed {
+  background: linear-gradient(135deg, var(--green-tint) 0%, rgba(16, 185, 129, 0.05) 100%);
+  border-color: var(--green);
+  box-shadow: 0 4px 20px var(--green-glow);
+}
+
+.trotro-sleep-alarm-card.triggered {
+  background: linear-gradient(135deg, var(--red-tint) 0%, rgba(239, 68, 68, 0.08) 100%);
+  border-color: var(--red);
+  animation: pulseAlarmBorder 1s infinite alternate;
+}
+
+@keyframes pulseAlarmBorder {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.5); }
+  100% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
+}
+
+.alarm-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.alarm-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.alarm-icon-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-xs);
+  flex-shrink: 0;
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+}
+
+.alarm-icon-badge.pulse-active {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  color: #ffffff;
+  box-shadow: 0 4px 14px var(--green-glow);
+}
+
+.alarm-icon-badge.pulse-active svg {
+  color: #ffffff !important;
+}
+
+.alarm-main-title {
+  font-family: var(--font-display);
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.alarm-sub-title {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.live-gps-tracking {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--green-dark);
+  font-weight: 700;
+}
+
+.spin-nav {
+  animation: rotateNav 4s linear infinite;
+}
+
+@keyframes rotateNav {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.alarm-controls {
+  flex-shrink: 0;
+}
+
+.alarm-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border: none;
+}
+
+.alarm-toggle-btn.inactive {
+  background: #090d16;
+  color: #ffffff;
+  box-shadow: var(--shadow-xs);
+}
+
+.alarm-toggle-btn.inactive:hover {
+  background: #1e293b;
+  transform: translateY(-1px);
+}
+
+.alarm-toggle-btn.active {
+  background: var(--green-dark);
+  color: #ffffff;
+  box-shadow: 0 4px 14px var(--green-glow);
+}
+
+.alarm-distance-status {
+  margin-top: 12px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.status-metric {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.metric-label {
+  font-weight: 700;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+.metric-value {
+  font-weight: 800;
+  color: var(--green-dark);
+  font-size: 14px;
+  font-family: var(--font-mono);
+}
+
+.metric-value.urgent {
+  color: var(--red);
+  animation: pulseValue 0.8s infinite alternate;
+}
+
+@keyframes pulseValue {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+.geofence-threshold-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-creamy);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+}
+
+.alarm-simulation-row {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-medium);
+}
+
+.sim-hint {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+.sim-test-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--border-medium);
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--spark-blue);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.sim-test-btn:hover {
+  background: var(--spark-blue-tint);
+  border-color: var(--spark-blue);
+  transform: translateY(-1px);
+}
+
+.alarm-error-notice {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--red-dark);
+  background: var(--red-tint);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+}
+
+/* FULL-SCREEN / MODAL WAKE UP ALERT OVERLAY */
+.wakeup-alert-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 13, 22, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeInAlert 0.25s ease-out;
+}
+
+@keyframes fadeInAlert {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.wakeup-modal-box {
+  background: var(--surface);
+  width: 100%;
+  max-width: 440px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  text-align: center;
+  border: 3px solid var(--red);
+  animation: shakeAlert 0.6s infinite ease-in-out;
+}
+
+@keyframes shakeAlert {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-4px) rotate(-0.5deg); }
+  75% { transform: translateY(4px) rotate(0.5deg); }
+}
+
+.wakeup-header {
+  background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+  color: #ffffff;
+  padding: 24px 20px 20px 20px;
+}
+
+.wakeup-alarm-ring {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 12px auto;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulseRing 0.8s infinite alternate;
+}
+
+@keyframes pulseRing {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.18); }
+}
+
+.wakeup-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.wakeup-destination-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.wakeup-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.wakeup-cue-card {
+  background: var(--gold-light);
+  border: 1px solid var(--gold-border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.wakeup-cue-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: #78350f;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.wakeup-cue-text {
+  font-size: 13px;
+  color: #78350f;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.wakeup-mate-shout {
+  background: #090d16;
+  color: #fde047;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.wakeup-dismiss-btn {
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  color: #ffffff;
+  border: 0;
+  padding: 14px 24px;
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(239, 68, 68, 0.4);
+  transition: all var(--transition-fast);
+}
+
+.wakeup-dismiss-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(239, 68, 68, 0.5);
+}

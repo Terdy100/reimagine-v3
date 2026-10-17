@@ -1,0 +1,101 @@
+/* =========================================================
+   ModeToggle Component Styles
+   Tactile Segmented Controller • Glassmorphic Glow
+========================================================= */
+
+.mode-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px;
+  background: #f1f5f9;
+  border-radius: var(--radius-pill);
+  border: 1px solid #e2e8f0;
+  position: relative;
+  z-index: 10;
+}
+
+.mode-pill-btn {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mode-pill-btn:hover:not(.active) {
+  background: var(--bg-creamy);
+  color: var(--text-primary);
+}
+
+.mode-pill-btn:active {
+  transform: scale(0.96);
+}
+
+.mode-pill-icon {
+  display: grid;
+  place-items: center;
+  transition: transform var(--transition-spring);
+}
+
+.mode-pill-label {
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+/* Active State: Find a ride (Ghana Emerald) */
+.mode-pill-btn.active.ride-active {
+  background: linear-gradient(135deg, var(--green-dark), #0f5132);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px var(--green-glow);
+}
+
+.mode-pill-btn.active.ride-active .mode-pill-icon {
+  transform: rotate(-15deg) scale(1.1);
+}
+
+/* Active State: Send a package (Obsidian Black) */
+.mode-pill-btn.active.package-active {
+  background: #000000;
+  background: linear-gradient(135deg, #1e293b, #000000);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.mode-pill-btn.active.package-active .mode-pill-icon {
+  transform: scale(1.1);
+  color: #ffffff;
+}
+
+/* NEW Badge */
+.mode-badge-new {
+  font-size: 9px;
+  font-weight: 800;
+  background: #0f172a;
+  color: #ffffff;
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  letter-spacing: 0.05em;
+  transition: all var(--transition-fast);
+}
+
+.mode-pill-btn.active.package-active .mode-badge-new {
+  background: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+}

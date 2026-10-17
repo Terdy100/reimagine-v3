@@ -1,0 +1,319 @@
+/* =========================================================
+   LANDMARK CUE & "LOOK OUT FOR" CARD STYLES
+   Ghanaian Commuter Visual & Audio Landmark Engine
+========================================================= */
+
+.landmark-cue-card {
+  margin: 12px 0 16px 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-sans);
+  transition: all var(--transition-fast);
+}
+
+.landmark-cue-card.alight-theme {
+  border-left: 5px solid var(--gold);
+  background: linear-gradient(180deg, var(--gold-light) 0%, var(--surface) 38%);
+}
+
+.landmark-cue-card.board-theme {
+  border-left: 5px solid var(--green);
+  background: linear-gradient(180deg, var(--green-tint) 0%, var(--surface) 38%);
+}
+
+.landmark-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.landmark-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.landmark-tag {
+  font-size: 10.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 9px;
+  border-radius: var(--radius-xs);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.landmark-tag.alight-tag {
+  background: var(--gold-light);
+  color: var(--gold-dark);
+  border: 1px solid var(--gold-border);
+}
+
+.landmark-tag.board-tag {
+  background: var(--green-tint);
+  color: var(--green-dark);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.landmark-proximity-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--red-tint);
+  color: var(--red-dark);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  animation: pulse-border 2s infinite ease-in-out;
+}
+
+@keyframes pulse-border {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+.landmark-card-content {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Mate shout out banner */
+.mate-call-banner {
+  background: #090d16;
+  color: #ffffff;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  box-shadow: var(--shadow-xs);
+}
+
+.mate-call-text-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mate-call-label {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+.mate-call-quote {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fde047;
+  letter-spacing: -0.01em;
+}
+
+.mate-call-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 10px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: background var(--transition-fast);
+}
+
+.mate-call-btn:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* Visual landmark text description */
+.visual-cue-description {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 2px 0;
+}
+
+.visual-cue-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--gold-dark);
+}
+
+.board-theme .visual-cue-icon {
+  color: var(--green-dark);
+}
+
+/* Photo Thumbnail & Lightbox Container */
+.landmark-photo-wrapper {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  max-height: 160px;
+  background: var(--bg-creamy);
+  cursor: pointer;
+  border: 1px solid var(--border-light);
+}
+
+.landmark-photo-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.landmark-photo-wrapper:hover .landmark-photo-img {
+  transform: scale(1.03);
+}
+
+.photo-overlay-badge {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.photo-expand-hint {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(15, 23, 42, 0.7);
+  color: #ffffff;
+  padding: 5px;
+  border-radius: var(--radius-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Fallback illustrated banner if no photo available */
+.landmark-no-photo-box {
+  background: var(--surface-subtle);
+  border: 1.5px dashed var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.no-photo-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.contribute-photo-btn {
+  background: var(--surface);
+  border: 1px solid var(--border-medium);
+  color: var(--text-primary);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.contribute-photo-btn:hover {
+  background: var(--bg-creamy);
+  border-color: var(--border-strong);
+  transform: translateY(-1px);
+}
+
+/* Lightbox Modal */
+.landmark-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(15, 23, 42, 0.94);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.lightbox-content {
+  max-width: 95vw;
+  max-height: 85vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightbox-full-img {
+  max-width: 100%;
+  max-height: 75vh;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  object-fit: contain;
+}
+
+.lightbox-caption {
+  margin-top: 14px;
+  color: #f8fafc;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: -42px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+}
+
+.lightbox-close-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+}

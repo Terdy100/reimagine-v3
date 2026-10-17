@@ -1,0 +1,174 @@
+/* =========================================================
+   Spark Motion App Layout & Container System
+   Fluid Responsive • Desktop Split-Screen • Mobile Glassmorphic
+========================================================= */
+
+.app-container {
+  width: 100%;
+  max-width: 480px;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0 auto;
+  background-color: var(--bg-color);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--border-subtle);
+}
+
+.home-main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  flex: 1;
+}
+
+/* =========================================================
+   Top Control Header (Solid White to cover map underneath)
+========================================================= */
+.home-top-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px 16px;
+  background: #ffffff;
+  border-radius: 0;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid #e2e8f0;
+  pointer-events: auto;
+  transition: all var(--transition-normal);
+}
+
+/* Subpages Container (Trips, More, Saved) */
+.subpage-main {
+  padding: 24px 20px 96px;
+  overflow-y: auto;
+  height: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  animation: pageFadeIn 0.3s ease-out;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modern Empty State Card */
+.empty-state-card {
+  background: var(--surface);
+  border: 1.5px dashed var(--border-medium);
+  border-radius: var(--radius-xl);
+  padding: 48px 24px;
+  text-align: center;
+  margin-top: 32px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.empty-state-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.empty-state-card p {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 340px;
+  line-height: 1.6;
+}
+
+.empty-state-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-lg);
+  background: var(--green-tint);
+  color: var(--green-dark);
+  display: grid;
+  place-items: center;
+  margin-bottom: 6px;
+}
+
+/* Quick Back to Map Pill for Subpages */
+.subpage-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.back-to-map-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  color: var(--text-secondary);
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-xs);
+  transition: all var(--transition-fast);
+}
+
+.back-to-map-btn:hover {
+  background: var(--bg-creamy);
+  color: var(--spark-blue);
+  border-color: var(--spark-blue);
+  transform: translateX(-2px);
+}
+
+/* Landing Page with Persistent App Dock */
+.landing-viewport {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding-bottom: 76px;
+}
+
+.landing-bottom-nav-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.landing-bottom-nav-dock .bottom-nav-container {
+  position: relative;
+  max-width: 480px;
+  width: 100%;
+  pointer-events: auto;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.12), 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e2e8f0;
+  margin-bottom: 8px;
+}
+

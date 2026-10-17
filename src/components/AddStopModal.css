@@ -1,0 +1,228 @@
+/* =========================================================
+   Add Stop Modal Styles
+   Crowdsourced Ghanaian TroTro Hub Contribution Modal
+========================================================= */
+
+.add-stop-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 13, 22, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+  animation: fadeInModal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.add-stop-modal-card {
+  background: var(--surface);
+  width: 100%;
+  max-width: 480px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-light);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUpModal {
+  from {
+    transform: translateY(20px) scale(0.97);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.add-stop-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-stop-icon-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.add-stop-header-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--green-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green-dark);
+  box-shadow: 0 2px 10px var(--green-glow);
+}
+
+.add-stop-icon-title h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.add-stop-subtitle {
+  margin: 2px 0 0 0;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.add-stop-close-btn {
+  background: var(--bg-creamy);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.add-stop-close-btn:hover {
+  background: var(--border-medium);
+  color: var(--text-primary);
+}
+
+/* Coordinates Info Bar */
+.coords-info-bar {
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.coord-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.coord-label {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.coord-value {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+}
+
+.coord-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-light);
+}
+
+/* Form inputs */
+.add-stop-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.add-stop-input-group label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.add-stop-input-group input,
+.add-stop-input-group textarea {
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--surface-subtle);
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.add-stop-input-group input:focus,
+.add-stop-input-group textarea:focus {
+  border-color: var(--green);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px var(--green-tint);
+}
+
+.detected-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green-tint);
+  color: var(--green-dark);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 4px;
+  width: fit-content;
+  transition: all var(--transition-fast);
+}
+
+.detected-pill-btn:hover {
+  background: rgba(16, 185, 129, 0.2);
+  transform: translateY(-1px);
+}
+
+.add-stop-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--green-dark), #0f5132);
+  color: #ffffff;
+  border: 0;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 16px var(--green-glow);
+  transition: all var(--transition-fast);
+}
+
+.add-stop-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px var(--green-glow);
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+}
+
+.add-stop-submit-btn:active {
+  transform: scale(0.97);
+}
